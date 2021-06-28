@@ -3,10 +3,10 @@ html {
 }
 
 html,
-body {
+body,
+#root,
+.App {
     height: 100%;
-    margin: 0;
-    padding: 0;
 }
 
 *, ::before, ::after {
@@ -30,4 +30,12 @@ a, a:hover {
     -webkit-transition: all .4s ease-in-out;
     -moz-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
+}
+
+.main {
+    width: 100%;
+    height: calc(100% - 12.5rem);
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 0 10px;
 }

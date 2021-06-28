@@ -4,12 +4,14 @@ import Homepage from './pages/Homepage';
 import './default.scss';
 
 const App = () => {
-    return (
-        <div>
-            <Header />
-            <Homepage />
-        </div>
-    )
-}
+	return (
+		<main className="App">
+			<Header />
+			<div className="main">
+				<Homepage />
+			</div>
+		</main>
+	);
+};
 
 export default App;
