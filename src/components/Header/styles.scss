@@ -5,11 +5,12 @@
      .wrap {
          max-width: 1450px;
          height: 100%;
-         margin: 0;
+         margin: 0 auto;
+         padding: 0;
          position: relative;
 
          .logo {
-             width: 13rem;
+            width: 13rem;
             position: absolute;
             top: 50%;
             left: 10px;
