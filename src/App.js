@@ -9,6 +9,7 @@ import HomepageLayout from './Layouts/HomepageLayout';
 // pages
 import Homepage from './pages/Homepage';
 import Registration from './pages/Registration';
+import Login from './pages/Login';
 
 // styles
 import './default.scss';
@@ -31,6 +32,15 @@ const App = () => (
         render={() => (
           <MainLayout>
             <Registration />
+          </MainLayout>
+        )}
+      />
+      <Route
+        exact
+        path="/login"
+        render={() => (
+          <MainLayout>
+            <Login />
           </MainLayout>
         )}
       />
