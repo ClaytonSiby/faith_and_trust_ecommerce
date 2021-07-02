@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
+import Signup from '../../components/Signup';
 import './styles.scss';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Registration extends Component {
   render() {
-    return (
-      <div>
-        <h1>Registration</h1>
-      </div>
-    );
+    return <Signup />;
   }
 }
 
