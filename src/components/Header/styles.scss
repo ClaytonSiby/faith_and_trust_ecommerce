@@ -31,7 +31,7 @@
       right: 10px;
       -webkit-transform: translateY(-50%);
       -moz-transform: translateY(-50%);
-      transform: -50%; // vertical center the items
+      transform: translateY(-50%); // vertical center the items
 
       ul,
       li {
