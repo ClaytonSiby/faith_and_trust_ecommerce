@@ -1,25 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Button from '../Forms/Button';
+import { signInWithGoogle } from '../../Firebase/utils';
 import './styles.scss';
 
-const SignIn = () => (
-  <div className="signin">
-    <div className="wrap">
-      <h2>Login</h2>
+class SignIn extends Component {
+  handleSubmit = async (e) => {
+    e.preventDefault();
+  }
 
-      <div className="formWrap">
-        <form>
-          <div className="socialSignin">
-            <div className="row">
-              <Button>
-                Google SignIn
-              </Button>
-            </div>
+  render() {
+    return (
+      <div className="signin">
+        <div className="wrap">
+          <h2>Login</h2>
+
+          <div className="formWrap">
+            <form onSubmit={this.handleSubmit}>
+              <div className="socialSignin">
+                <div className="row">
+                  <Button onClick={signInWithGoogle}>Google SignIn</Button>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
-  </div>
-);
+    );
+  }
+}
 
 export default SignIn;
