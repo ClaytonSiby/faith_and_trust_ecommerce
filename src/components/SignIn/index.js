@@ -56,9 +56,9 @@ class SignIn extends Component {
               <FormInput type="password" name="password" value={password} onChange={this.handleChange} placeholder="*******" />
               <Button type="submit">Login</Button>
               <div className="socialSignin">
-                <div className="row">
-                  <Button onClick={signInWithGoogle}>Google SignIn</Button>
-                </div>
+
+                <Button type="button" onClick={signInWithGoogle}>Google SignIn</Button>
+
               </div>
             </form>
           </div>
