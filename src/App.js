@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { auth } from './Firebase/utils';
 // import Header from './components/Header';
 
 // layouts
@@ -14,38 +15,75 @@ import Login from './pages/Login';
 // styles
 import './default.scss';
 
-const App = () => (
-  <main className="App">
-    <Switch>
-      <Route
-        exact
-        path="/"
-        render={() => (
-          <HomepageLayout>
-            <Homepage />
-          </HomepageLayout>
-        )}
-      />
-      <Route
-        exact
-        path="/registration"
-        render={() => (
-          <MainLayout>
-            <Registration />
-          </MainLayout>
-        )}
-      />
-      <Route
-        exact
-        path="/login"
-        render={() => (
-          <MainLayout>
-            <Login />
-          </MainLayout>
-        )}
-      />
-    </Switch>
-  </main>
-);
+const initialState = {
+  currentUser: null,
+};
+class App extends Component {
+  authListener = null;
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ...initialState,
+    };
+  }
+
+  componentDidMount() {
+    this.authListener = auth.onAuthStateChanged((userAuth) => {
+      if (!userAuth) {
+        this.setState({
+          ...initialState,
+        });
+      }
+
+      this.setState({
+        // eslint-disable-next-line react/no-unused-state
+        currentUser: userAuth,
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.authListener();
+  }
+
+  render() {
+    const { currentUser } = this.state;
+    return (
+      <main className="App">
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <HomepageLayout currentUser={currentUser}>
+                <Homepage />
+              </HomepageLayout>
+            )}
+          />
+          <Route
+            exact
+            path="/registration"
+            render={() => (
+              <MainLayout currentUser={currentUser}>
+                <Registration />
+              </MainLayout>
+            )}
+          />
+          <Route
+            exact
+            path="/login"
+            render={() => (
+              <MainLayout currentUser={currentUser}>
+                <Login />
+              </MainLayout>
+            )}
+          />
+        </Switch>
+      </main>
+    );
+  }
+}
 
 export default App;

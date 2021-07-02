@@ -1,11 +1,12 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const HomepageLayout = ({ children }) => (
+const HomepageLayout = ({ children, ...other }) => (
   <div className="fullHeight">
-    <Header />
+    <Header {...other} />
     { children }
     <Footer />
   </div>

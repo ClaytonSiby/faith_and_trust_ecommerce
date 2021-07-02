@@ -1,11 +1,12 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const MainLayout = ({ children }) => (
+const MainLayout = ({ children, ...other }) => (
   <div>
-    <Header />
+    <Header {...other} />
     <div className="main">
       { children }
     </div>
