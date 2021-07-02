@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { auth } from './Firebase/utils';
 // import Header from './components/Header';
 
@@ -74,11 +74,11 @@ class App extends Component {
           <Route
             exact
             path="/login"
-            render={() => (
+            render={() => (currentUser ? <Redirect to="/" /> : (
               <MainLayout currentUser={currentUser}>
                 <Login />
               </MainLayout>
-            )}
+            ))}
           />
         </Switch>
       </main>
