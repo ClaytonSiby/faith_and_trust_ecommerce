@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { auth } from './Firebase/utils';
+import { auth, handleUserProfile } from './Firebase/utils';
 // import Header from './components/Header';
 
 // layouts
@@ -30,16 +30,21 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.authListener = auth.onAuthStateChanged((userAuth) => {
-      if (!userAuth) {
-        this.setState({
-          ...initialState,
+    this.authListener = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await handleUserProfile(userAuth);
+        userRef.onSnapshot((snapshot) => {
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data(),
+            },
+          });
         });
       }
 
       this.setState({
-        // eslint-disable-next-line react/no-unused-state
-        currentUser: userAuth,
+        ...initialState,
       });
     });
   }
