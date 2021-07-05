@@ -31,6 +31,7 @@ const Signup = () => {
     if (password !== confirmPassword) {
       const err = ['Passwords Don\'t match'];
       setErrors(err);
+      return;
     }
 
     try {
@@ -62,10 +63,10 @@ const Signup = () => {
             </ul>
           )}
           <form onSubmit={handleFormSubmit}>
-            <FormInput type="text" name="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="Full Name" />
-            <FormInput type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email Address" />
-            <FormInput type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" />
-            <FormInput type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="********" />
+            <FormInput type="text" name="displayName" value={displayName} handleChange={(e) => setDisplayName(e.target.value)} placeholder="Full Name" />
+            <FormInput type="email" name="email" value={email} handleChange={(e) => setEmail(e.target.value)} placeholder="Email Address" />
+            <FormInput type="password" name="password" value={password} handleChange={(e) => setPassword(e.target.value)} placeholder="********" />
+            <FormInput type="password" name="confirmPassword" value={confirmPassword} handleChange={(e) => setConfirmPassword(e.target.value)} placeholder="********" />
             <Button type="submit">Register</Button>
           </form>
         </div>
