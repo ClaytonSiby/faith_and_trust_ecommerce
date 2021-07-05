@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import Button from '../Forms/Button';
-import FormInput from '../Forms/FromInput';
+import FormInput from '../Forms/FormInput';
 import AuthWrapper from '../AuthWrapper';
 import { signInWithGoogle, auth } from '../../Firebase/utils';
 import './styles.scss';

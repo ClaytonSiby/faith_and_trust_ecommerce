@@ -1,10 +1,7 @@
 import React from 'react';
+import EmailPassword from '../../components/EmailPassword';
 import './styles.scss';
 
-const Recovery = () => (
-  <div>
-    <h1>Email Password</h1>
-  </div>
-);
+const Recovery = () => <EmailPassword />;
 
 export default Recovery;

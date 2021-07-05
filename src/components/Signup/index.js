@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import FormInput from '../Forms/FromInput';
+import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
 
 import AuthWrapper from '../AuthWrapper';
