@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -20,12 +20,11 @@ import Login from './pages/Login';
 // styles
 import './default.scss';
 
-class App extends Component {
-  authListener = null;
+const App = (props) => {
+  const { setCurrentUser, currentUser } = props;
 
-  componentDidMount() {
-    const { setCurrentUser } = this.props;
-    this.authListener = auth.onAuthStateChanged(async (userAuth) => {
+  useEffect(() => {
+    const authListener = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot((snapshot) => {
@@ -38,57 +37,54 @@ class App extends Component {
 
       setCurrentUser(userAuth);
     });
-  }
 
-  componentWillUnmount() {
-    this.authListener();
-  }
+    return () => {
+      authListener();
+    };
+  }, []);
 
-  render() {
-    const { currentUser } = this.props;
-    return (
-      <main className="App">
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <HomepageLayout>
-                <Homepage />
-              </HomepageLayout>
-            )}
-          />
-          <Route
-            exact
-            path="/registration"
-            render={() => (currentUser ? <Redirect to="/" /> : (
-              <MainLayout>
-                <Registration />
-              </MainLayout>
-            ))}
-          />
-          <Route
-            exact
-            path="/login"
-            render={() => (currentUser ? <Redirect to="/" /> : (
-              <MainLayout>
-                <Login />
-              </MainLayout>
-            ))}
-          />
-          <Route
-            path="/recovery"
-            render={() => (
-              <MainLayout>
-                <Recovery />
-              </MainLayout>
-            )}
-          />
-        </Switch>
-      </main>
-    );
-  }
-}
+  return (
+    <main className="App">
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <HomepageLayout>
+              <Homepage />
+            </HomepageLayout>
+          )}
+        />
+        <Route
+          exact
+          path="/registration"
+          render={() => (currentUser ? <Redirect to="/" /> : (
+            <MainLayout>
+              <Registration />
+            </MainLayout>
+          ))}
+        />
+        <Route
+          exact
+          path="/login"
+          render={() => (currentUser ? <Redirect to="/" /> : (
+            <MainLayout>
+              <Login />
+            </MainLayout>
+          ))}
+        />
+        <Route
+          path="/recovery"
+          render={() => (
+            <MainLayout>
+              <Recovery />
+            </MainLayout>
+          )}
+        />
+      </Switch>
+    </main>
+  );
+};
 
 App.propTypes = {
   currentUser: PropTypes.string,
