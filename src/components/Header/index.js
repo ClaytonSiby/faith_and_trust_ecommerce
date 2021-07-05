@@ -1,14 +1,17 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { auth } from '../../Firebase/utils';
 import './styles.scss';
 
-const Header = (props) => {
-  const { currentUser } = props;
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+const Header = () => {
+  const { currentUser } = useSelector(mapState);
 
   return (
     <header className="header">
@@ -50,12 +53,4 @@ Header.defaultProps = {
   currentUser: null,
 };
 
-Header.propTypes = {
-  currentUser: PropTypes.string,
-};
-
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
-});
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;
