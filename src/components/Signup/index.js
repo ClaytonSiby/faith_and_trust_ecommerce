@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
 
@@ -11,69 +10,47 @@ import { auth, handleUserProfile } from '../../Firebase/utils';
 
 import './styles.scss';
 
-const initialState = {
-  displayName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  errors: [],
-};
+const Signup = () => {
+  const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState([]);
 
-class Signup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...initialState,
-    };
+  const resetForm = () => {
+    setDisplayName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setErrors([]);
+  };
 
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(e) {
-    const { name, value } = e.target;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleFormSubmit = async (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    const {
-      displayName, email, password, confirmPassword,
-    } = this.state;
 
     if (password !== confirmPassword) {
       const err = ['Passwords Don\'t match'];
-      this.setState({ errors: err });
+      setErrors(err);
     }
 
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email, password);
       await handleUserProfile(user, { displayName });
 
-      this.setState({
-        ...initialState,
-      });
+      resetForm();
     } catch (error) {
       // console.log(error);
     }
-  }
+  };
 
-  render() {
-    const {
-      displayName, email, password, confirmPassword, errors,
-    } = this.state;
-
-    const configAuthWrapper = {
-      headline: 'Registration',
-    };
-    return (
-      <AuthWrapper {...configAuthWrapper}>
-        <div className="wrap">
-          <div className="formWrap">
-            { errors.length > 0 && (
+  const configAuthWrapper = {
+    headline: 'Registration',
+  };
+  return (
+    <AuthWrapper {...configAuthWrapper}>
+      <div className="wrap">
+        <div className="formWrap">
+          { errors.length > 0 && (
             <ul>
               { errors.map((err) => (
                 <li key={Math.random() * 100}>
@@ -83,19 +60,18 @@ class Signup extends Component {
                 </li>
               ))}
             </ul>
-            )}
-            <form onSubmit={this.handleFormSubmit}>
-              <FormInput type="text" name="displayName" value={displayName} onChange={this.handleChange} placeholder="Full Name" />
-              <FormInput type="email" name="email" value={email} onChange={this.handleChange} placeholder="Email Address" />
-              <FormInput type="password" name="password" value={password} onChange={this.handleChange} placeholder="********" />
-              <FormInput type="password" name="confirmPassword" value={confirmPassword} onChange={this.handleChange} placeholder="********" />
-              <Button type="submit">Register</Button>
-            </form>
-          </div>
+          )}
+          <form onSubmit={handleFormSubmit}>
+            <FormInput type="text" name="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="Full Name" />
+            <FormInput type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email Address" />
+            <FormInput type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" />
+            <FormInput type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="********" />
+            <Button type="submit">Register</Button>
+          </form>
         </div>
-      </AuthWrapper>
-    );
-  }
-}
+      </div>
+    </AuthWrapper>
+  );
+};
 
 export default Signup;
