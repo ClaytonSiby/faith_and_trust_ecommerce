@@ -63,7 +63,7 @@ class App extends Component {
             exact
             path="/"
             render={() => (
-              <HomepageLayout currentUser={currentUser}>
+              <HomepageLayout>
                 <Homepage />
               </HomepageLayout>
             )}
@@ -72,7 +72,7 @@ class App extends Component {
             exact
             path="/registration"
             render={() => (currentUser ? <Redirect to="/" /> : (
-              <MainLayout currentUser={currentUser}>
+              <MainLayout>
                 <Registration />
               </MainLayout>
             ))}
@@ -81,7 +81,7 @@ class App extends Component {
             exact
             path="/login"
             render={() => (currentUser ? <Redirect to="/" /> : (
-              <MainLayout currentUser={currentUser}>
+              <MainLayout>
                 <Login />
               </MainLayout>
             ))}
