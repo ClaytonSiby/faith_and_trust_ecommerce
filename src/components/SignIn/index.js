@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../Forms/Button';
 import FormInput from '../Forms/FormInput';
 import AuthWrapper from '../AuthWrapper';
@@ -62,6 +63,9 @@ class SignIn extends Component {
 
               <Button type="button" onClick={signInWithGoogle}>Google SignIn</Button>
 
+            </div>
+            <div className="links">
+              <Link to="/recovery">Forgot Password</Link>
             </div>
           </form>
         </div>
