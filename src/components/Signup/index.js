@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
 
@@ -10,7 +12,7 @@ import { auth, handleUserProfile } from '../../Firebase/utils';
 
 import './styles.scss';
 
-const Signup = () => {
+const Signup = (props) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,6 +41,7 @@ const Signup = () => {
       await handleUserProfile(user, { displayName });
 
       resetForm();
+      props.history.push('/');
     } catch (error) {
       // console.log(error);
     }
@@ -75,4 +78,8 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+Signup.propTypes = {
+  history: PropTypes.string.isRequired,
+};
+
+export default withRouter(Signup);

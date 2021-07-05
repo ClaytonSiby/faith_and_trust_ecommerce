@@ -2,10 +2,13 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { auth, handleUserProfile } from './Firebase/utils';
 import { setCurrentUser } from './redux/User/user.actions';
 // import Header from './components/Header';
+
+// hoc
+import WithAuth from './hoc/withAuth';
 
 // layouts
 import MainLayout from './Layouts/MainLayout';
@@ -16,12 +19,13 @@ import Homepage from './pages/Homepage';
 import Registration from './pages/Registration';
 import Recovery from './pages/Recovery';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 
 // styles
 import './default.scss';
 
 const App = (props) => {
-  const { setCurrentUser, currentUser } = props;
+  const { setCurrentUser } = props;
 
   useEffect(() => {
     const authListener = auth.onAuthStateChanged(async (userAuth) => {
@@ -58,20 +62,20 @@ const App = (props) => {
         <Route
           exact
           path="/registration"
-          render={() => (currentUser ? <Redirect to="/" /> : (
+          render={() => (
             <MainLayout>
               <Registration />
             </MainLayout>
-          ))}
+          )}
         />
         <Route
           exact
           path="/login"
-          render={() => (currentUser ? <Redirect to="/" /> : (
+          render={() => (
             <MainLayout>
               <Login />
             </MainLayout>
-          ))}
+          )}
         />
         <Route
           path="/recovery"
@@ -81,18 +85,23 @@ const App = (props) => {
             </MainLayout>
           )}
         />
+        <Route
+          path="/dashboard"
+          render={() => (
+            <WithAuth>
+              <MainLayout>
+                <Dashboard />
+              </MainLayout>
+            </WithAuth>
+          )}
+        />
       </Switch>
     </main>
   );
 };
 
 App.propTypes = {
-  currentUser: PropTypes.string,
   setCurrentUser: PropTypes.func.isRequired,
-};
-
-App.defaultProps = {
-  currentUser: null,
 };
 
 const mapStateToProps = ({ user }) => ({

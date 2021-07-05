@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Button from '../Forms/Button';
 import FormInput from '../Forms/FormInput';
 import AuthWrapper from '../AuthWrapper';
 import { signInWithGoogle, auth } from '../../Firebase/utils';
 import './styles.scss';
 
-const SignIn = () => {
+const SignIn = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,6 +24,7 @@ const SignIn = () => {
       await auth.signInWithEmailAndPassword(email, password);
 
       resetForm();
+      props.history.push('/');
     } catch (error) {
       // console.log(error);
     }
@@ -52,4 +54,8 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+SignIn.propTypes = {
+  history: PropTypes.string.isRequired,
+};
+
+export default withRouter(SignIn);
