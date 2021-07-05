@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import Button from '../Forms/Button';
 import FormInput from '../Forms/FromInput';
+import AuthWrapper from '../AuthWrapper';
 import { signInWithGoogle, auth } from '../../Firebase/utils';
 import './styles.scss';
 
@@ -45,25 +47,25 @@ class SignIn extends Component {
 
   render() {
     const { email, password } = this.state;
+    const configAuthWrapper = {
+      headline: 'Login',
+    };
+
     return (
-      <div className="signin">
-        <div className="wrap">
-          <h2>Login</h2>
+      <AuthWrapper {...configAuthWrapper}>
+        <div className="formWrap">
+          <form onSubmit={this.handleSubmit}>
+            <FormInput type="email" name="email" value={email} onChange={this.handleChange} placeholder="Email Address" />
+            <FormInput type="password" name="password" value={password} onChange={this.handleChange} placeholder="*******" />
+            <Button type="submit">Login</Button>
+            <div className="socialSignin">
 
-          <div className="formWrap">
-            <form onSubmit={this.handleSubmit}>
-              <FormInput type="email" name="email" value={email} onChange={this.handleChange} placeholder="Email Address" />
-              <FormInput type="password" name="password" value={password} onChange={this.handleChange} placeholder="*******" />
-              <Button type="submit">Login</Button>
-              <div className="socialSignin">
+              <Button type="button" onClick={signInWithGoogle}>Google SignIn</Button>
 
-                <Button type="button" onClick={signInWithGoogle}>Google SignIn</Button>
-
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
-      </div>
+      </AuthWrapper>
     );
   }
 }

@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import FormInput from '../Forms/FromInput';
 import Button from '../Forms/Button';
+
+import AuthWrapper from '../AuthWrapper';
 
 // firebase
 import { auth, handleUserProfile } from '../../Firebase/utils';
@@ -62,11 +65,15 @@ class Signup extends Component {
     const {
       displayName, email, password, confirmPassword, errors,
     } = this.state;
+
+    const configAuthWrapper = {
+      headline: 'Registration',
+    };
     return (
-      <div className="signup">
+      <AuthWrapper {...configAuthWrapper}>
         <div className="wrap">
-          <h2>SignUp</h2>
-          { errors.length > 0 && (
+          <div className="formWrap">
+            { errors.length > 0 && (
             <ul>
               { errors.map((err) => (
                 <li key={Math.random() * 100}>
@@ -76,8 +83,7 @@ class Signup extends Component {
                 </li>
               ))}
             </ul>
-          )}
-          <div className="formWrap">
+            )}
             <form onSubmit={this.handleFormSubmit}>
               <FormInput type="text" name="displayName" value={displayName} onChange={this.handleChange} placeholder="Full Name" />
               <FormInput type="email" name="email" value={email} onChange={this.handleChange} placeholder="Email Address" />
@@ -87,7 +93,7 @@ class Signup extends Component {
             </form>
           </div>
         </div>
-      </div>
+      </AuthWrapper>
     );
   }
 }
