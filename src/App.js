@@ -1,6 +1,10 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { auth, handleUserProfile } from './Firebase/utils';
+import { setCurrentUser } from './redux/User/user.actions';
 // import Header from './components/Header';
 
 // layouts
@@ -16,37 +20,23 @@ import Login from './pages/Login';
 // styles
 import './default.scss';
 
-const initialState = {
-  currentUser: null,
-};
 class App extends Component {
   authListener = null;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      ...initialState,
-    };
-  }
-
   componentDidMount() {
+    const { setCurrentUser } = this.props;
     this.authListener = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot((snapshot) => {
-          this.setState({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data(),
-            },
+          setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data(),
           });
         });
       }
 
-      this.setState({
-        ...initialState,
-      });
+      setCurrentUser(userAuth);
     });
   }
 
@@ -55,7 +45,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser } = this.state;
+    const { currentUser } = this.props;
     return (
       <main className="App">
         <Switch>
@@ -100,4 +90,21 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  currentUser: PropTypes.string,
+  setCurrentUser: PropTypes.func.isRequired,
+};
+
+App.defaultProps = {
+  currentUser: null,
+};
+
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

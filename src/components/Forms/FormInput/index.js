@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -21,8 +22,8 @@ const FormInput = ({ handleChange, label, ...otherProps }) => (
 );
 
 FormInput.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
+  handleChange: PropTypes.func,
+  label: PropTypes.string,
 };
 
 export default FormInput;
