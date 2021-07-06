@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -74,7 +75,7 @@ const SignIn = (props) => {
 };
 
 SignIn.propTypes = {
-  history: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withRouter(SignIn);

@@ -1,18 +1,23 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
-
+import { signUpUser } from '../../redux/User/user.actions';
 import AuthWrapper from '../AuthWrapper';
-
-// firebase
-import { auth, handleUserProfile } from '../../Firebase/utils';
-
 import './styles.scss';
 
+const mapState = ({ user }) => ({
+  signUpSuccess: user.signUpSuccess,
+  signUpError: user.signUpError,
+});
+
 const Signup = (props) => {
+  const dispatch = useDispatch();
+  const { signUpSuccess, signUpError } = useSelector(mapState);
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,24 +32,27 @@ const Signup = (props) => {
     setErrors([]);
   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    if (password !== confirmPassword) {
-      const err = ['Passwords Don\'t match'];
-      setErrors(err);
-      return;
-    }
-
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
-      await handleUserProfile(user, { displayName });
-
+  useEffect(() => {
+    if (signUpSuccess) {
       resetForm();
       props.history.push('/');
-    } catch (error) {
-      // console.log(error);
     }
+  }, [signUpSuccess]);
+
+  useEffect(() => {
+    if (Array.isArray(signUpError) && signUpError.length > 0) {
+      setErrors(signUpError);
+    }
+  }, [signUpError]);
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    dispatch(signUpUser({
+      displayName,
+      email,
+      password,
+      confirmPassword,
+    }));
   };
 
   const configAuthWrapper = {
@@ -79,7 +87,7 @@ const Signup = (props) => {
 };
 
 Signup.propTypes = {
-  history: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withRouter(Signup);
