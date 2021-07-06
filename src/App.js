@@ -1,7 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { auth, handleUserProfile } from './Firebase/utils';
 import { setCurrentUser } from './redux/User/user.actions';
@@ -24,18 +23,18 @@ import Dashboard from './pages/Dashboard';
 // styles
 import './default.scss';
 
-const App = (props) => {
-  const { setCurrentUser } = props;
+const App = () => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const authListener = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot((snapshot) => {
-          setCurrentUser({
+          dispatch(setCurrentUser({
             id: snapshot.id,
             ...snapshot.data(),
-          });
+          }));
         });
       }
 
@@ -100,16 +99,4 @@ const App = (props) => {
   );
 };
 
-App.propTypes = {
-  setCurrentUser: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
