@@ -42,3 +42,29 @@ export const signUpUser = ({
     // console.log(error);
   }
 };
+
+export const resetPassword = ({ email }) => async (dispatch) => {
+  // url to send user when they have reset their passord
+  const config = {
+    url: 'http://localhost:3000/login',
+  };
+
+  try {
+    await auth.sendPasswordResetEmail(email, config)
+      .then(() => {
+        dispatch({
+          type: userTypes.RESET_PASSWORD_SUCCESS,
+          payload: true,
+        });
+      })
+      .catch(() => {
+        const err = ['email not found! Please try again.'];
+        dispatch({
+          type: userTypes.RESET_PASSWORD_ERROR,
+          payload: err,
+        });
+      });
+  } catch (error) {
+    // console.log(error)
+  }
+};

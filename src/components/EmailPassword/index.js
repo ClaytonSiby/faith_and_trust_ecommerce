@@ -2,40 +2,41 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import AuthWrapper from '../AuthWrapper';
 import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
-
-// firebase
-import { auth } from '../../Firebase/utils';
+import { resetPassword } from '../../redux/User/user.actions';
 import './styles.scss';
 
+const mapState = ({ user }) => ({
+  resetPasswordSuccess: user.resetPasswordSuccess,
+  resetPasswordError: user.resetPasswordError,
+});
+
 const EmailPassword = (props) => {
+  const { resetPasswordSuccess, resetPasswordError } = useSelector(mapState);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState([]);
 
+  useEffect(() => {
+    if (resetPasswordSuccess) {
+      props.history.push('/login');
+    }
+  }, [resetPasswordSuccess]);
+
+  useEffect(() => {
+    if (Array.isArray(resetPasswordError) && resetPasswordError.length > 0) {
+      setErrors(resetPasswordError);
+    }
+  }, [resetPasswordError]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      // url to send user when they have reset their passord
-      const config = {
-        url: 'http://localhost:3000/login',
-      };
-
-      await auth.sendPasswordResetEmail(email, config)
-        .then(() => {
-          props.history.push('/login');
-        })
-        .catch(() => {
-          const err = ['email not found! Please try again.'];
-
-          setErrors(err);
-        });
-    } catch (error) {
-      // console.log(error)
-    }
+    dispatch(resetPassword({ email }));
   };
 
   const configAuthWrapper = {
