@@ -1,5 +1,9 @@
-import { auth, handleUserProfile } from '../../Firebase/utils';
+import { auth, handleUserProfile, GoogleProvider } from '../../Firebase/utils';
 import userTypes from './user.types';
+
+export const resetAllAuthForms = () => ({
+  type: userTypes.RESET_AUTH_FORMS,
+});
 
 // eslint-disable-next-line import/prefer-default-export
 export const setCurrentUser = (user) => ({
@@ -66,5 +70,19 @@ export const resetPassword = ({ email }) => async (dispatch) => {
       });
   } catch (error) {
     // console.log(error)
+  }
+};
+
+export const signInWithGoogle = () => async (dispatch) => {
+  try {
+    await auth.signInWithPopup(GoogleProvider)
+      .then(() => {
+        dispatch({
+          type: userTypes.SIGN_IN_SUCCESS,
+          payload: true,
+        });
+      });
+  } catch (error) {
+    // console.log(error);
   }
 };

@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import AuthWrapper from '../AuthWrapper';
 import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
-import { resetPassword } from '../../redux/User/user.actions';
+import { resetPassword, resetAllAuthForms } from '../../redux/User/user.actions';
 import './styles.scss';
 
 const mapState = ({ user }) => ({
@@ -24,6 +24,7 @@ const EmailPassword = (props) => {
 
   useEffect(() => {
     if (resetPasswordSuccess) {
+      dispatch(resetAllAuthForms());
       props.history.push('/login');
     }
   }, [resetPasswordSuccess]);

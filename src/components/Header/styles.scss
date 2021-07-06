@@ -48,12 +48,13 @@
           margin-right: 0;
         }
 
-        a {
+        a, span {
           font-size: 1.2rem;
           line-height: 1;
           color: #000;
           text-decoration: none;
           text-transform: uppercase;
+          cursor: pointer;
         }
       }
     }

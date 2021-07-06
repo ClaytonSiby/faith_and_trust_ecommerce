@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
-import { signUpUser } from '../../redux/User/user.actions';
+import { signUpUser, resetAllAuthForms } from '../../redux/User/user.actions';
 import AuthWrapper from '../AuthWrapper';
 import './styles.scss';
 
@@ -35,6 +35,7 @@ const Signup = (props) => {
   useEffect(() => {
     if (signUpSuccess) {
       resetForm();
+      dispatch(resetAllAuthForms());
       props.history.push('/');
     }
   }, [signUpSuccess]);
