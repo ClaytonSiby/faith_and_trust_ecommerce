@@ -41,3 +41,10 @@ export const handleUserProfile = async ({ userAuth, additionalData }) => {
 
   return userRef; // stores the user information
 };
+
+export const getCurrentUser = () => new Promise((resolve, reject) => {
+  const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+    unsubscribe();
+    resolve(userAuth);
+  }, reject);
+});

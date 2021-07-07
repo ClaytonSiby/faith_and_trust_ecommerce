@@ -4,7 +4,6 @@ import './styles.scss';
 
 const Login = () => (
   <div>
-    <h1>Login Page</h1>
     <SignIn />
   </div>
 );

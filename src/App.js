@@ -1,11 +1,8 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import { auth, handleUserProfile } from './Firebase/utils';
-import { setCurrentUser } from './redux/User/user.actions';
-// import Header from './components/Header';
+import { checkUserSession } from './redux/User/user.actions';
 
 // hoc
 import WithAuth from './hoc/withAuth';
@@ -24,56 +21,64 @@ import Dashboard from './pages/Dashboard';
 // styles
 import './default.scss';
 
-const App = () => (
-  <main className="App">
-    <Switch>
-      <Route
-        exact
-        path="/"
-        render={() => (
-          <HomepageLayout>
-            <Homepage />
-          </HomepageLayout>
-        )}
-      />
-      <Route
-        exact
-        path="/registration"
-        render={() => (
-          <MainLayout>
-            <Registration />
-          </MainLayout>
-        )}
-      />
-      <Route
-        exact
-        path="/login"
-        render={() => (
-          <MainLayout>
-            <Login />
-          </MainLayout>
-        )}
-      />
-      <Route
-        path="/recovery"
-        render={() => (
-          <MainLayout>
-            <Recovery />
-          </MainLayout>
-        )}
-      />
-      <Route
-        path="/dashboard"
-        render={() => (
-          <WithAuth>
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkUserSession());
+  }, []);
+
+  return (
+    <main className="App">
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <HomepageLayout>
+              <Homepage />
+            </HomepageLayout>
+          )}
+        />
+        <Route
+          exact
+          path="/registration"
+          render={() => (
             <MainLayout>
-              <Dashboard />
+              <Registration />
             </MainLayout>
-          </WithAuth>
-        )}
-      />
-    </Switch>
-  </main>
-);
+          )}
+        />
+        <Route
+          exact
+          path="/login"
+          render={() => (
+            <MainLayout>
+              <Login />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/recovery"
+          render={() => (
+            <MainLayout>
+              <Recovery />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/dashboard"
+          render={() => (
+            <WithAuth>
+              <MainLayout>
+                <Dashboard />
+              </MainLayout>
+            </WithAuth>
+          )}
+        />
+      </Switch>
+    </main>
+  );
+};
 
 export default App;

@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { auth } from '../../Firebase/utils';
+import { signOutUserStart } from '../../redux/User/user.actions';
 import './styles.scss';
 
 const mapState = ({ user }) => ({
@@ -11,7 +11,12 @@ const mapState = ({ user }) => ({
 });
 
 const Header = () => {
+  const dispatch = useDispatch();
   const { currentUser } = useSelector(mapState);
+
+  const signOut = () => {
+    dispatch(signOutUserStart());
+  };
 
   return (
     <header className="header">
@@ -29,7 +34,7 @@ const Header = () => {
                 <li>
                   <Link to="/dashboard">My Account</Link>
                 </li>
-                <li><span onClick={() => auth.signOut()}>LOGOUT</span></li>
+                <li><span onClick={() => signOut()}>LOGOUT</span></li>
               </ul>
             )
           }
