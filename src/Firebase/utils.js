@@ -13,7 +13,7 @@ export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
 GoogleProvider.setCustomParameters({ prompt: 'select_account' });
 
 // registering users to the database
-export const handleUserProfile = async (userAuth, additionalData) => {
+export const handleUserProfile = async ({ userAuth, additionalData }) => {
   if (!userAuth) return;
   const { uid } = userAuth;
 
@@ -39,5 +39,5 @@ export const handleUserProfile = async (userAuth, additionalData) => {
     }
   }
 
-  return userRef;
+  return userRef; // stores the user information
 };
