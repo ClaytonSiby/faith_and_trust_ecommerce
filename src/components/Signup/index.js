@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
@@ -15,8 +15,9 @@ const mapState = ({ user }) => ({
   userError: user.userError,
 });
 
-const Signup = (props) => {
+const Signup = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { currentUser, userError } = useSelector(mapState);
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
@@ -35,7 +36,7 @@ const Signup = (props) => {
   useEffect(() => {
     if (currentUser) {
       resetForm();
-      props.history.push('/');
+      history.push('/');
     }
   }, [currentUser]);
 
@@ -90,4 +91,4 @@ Signup.propTypes = {
   history: PropTypes.object.isRequired,
 };
 
-export default withRouter(Signup);
+export default Signup;

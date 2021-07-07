@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { emailSignInStart, googleSignInStart } from '../../redux/User/user.actions';
@@ -15,8 +15,9 @@ const mapState = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
-const SignIn = (props) => {
+const SignIn = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { currentUser } = useSelector(mapState);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +30,7 @@ const SignIn = (props) => {
   useEffect(() => {
     if (currentUser) {
       resetForm();
-      props.history.push('/');
+      history.push('/');
     }
   }, [currentUser]);
 
@@ -83,4 +84,4 @@ SignIn.propTypes = {
   history: PropTypes.object.isRequired,
 };
 
-export default withRouter(SignIn);
+export default SignIn;
