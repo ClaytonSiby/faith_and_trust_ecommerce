@@ -6,11 +6,13 @@ import {
   auth, handleUserProfile, getCurrentUser, GoogleProvider,
 } from '../../Firebase/utils';
 import userTypes from './user.types';
-import { signInSuccess, signOutUserSuccess } from './user.actions';
+import {
+  signInSuccess, signOutUserSuccess, userError,
+} from './user.actions';
 
-export function* getSnapshotFromUserAuth(user) {
+export function* getSnapshotFromUserAuth(user, additionalData = {}) {
   try {
-    const userRef = yield call(handleUserProfile, { userAuth: user });
+    const userRef = yield call(handleUserProfile, { userAuth: user, additionalData });
     const snapshot = yield userRef.get();
     // dispatch and updat the redux store
     yield put(signInSuccess({
@@ -65,7 +67,38 @@ export function* onSignOutUserStart() {
   yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUser);
 }
 
+export function* signUpUser({
+  payload: {
+    displayName,
+    email,
+    password,
+    confirmPassword,
+  },
+}) {
+  if (password !== confirmPassword) {
+    const err = ['Passwords Don\'t match'];
+    yield put(userError(err)); // dispatch
+    return;
+  }
+
+  try {
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+    const additionalData = { displayName };
+    yield getSnapshotFromUserAuth(user, additionalData);
+  } catch (error) {
+    // console.log(error);
+  }
+}
+
+export function* onSignUpUserStart() {
+  yield takeLatest(userTypes.SIGN_UP_USER_START, signUpUser);
+}
+
 // more like rootReducer
 export default function* userSagas() {
-  yield all([call(onEmailSignInStart), call(onCheckUserSession), call(onSignOutUserStart)]);
+  yield all([
+    call(onEmailSignInStart),
+    call(onCheckUserSession),
+    call(onSignOutUserStart),
+    call(onSignUpUserStart)]);
 }
