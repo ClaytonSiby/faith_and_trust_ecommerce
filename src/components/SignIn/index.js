@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
-import { emailSignInStart, signInWithGoogle, resetAllAuthForms } from '../../redux/User/user.actions';
+import { emailSignInStart, googleSignInStart } from '../../redux/User/user.actions';
 import Button from '../Forms/Button';
 import FormInput from '../Forms/FormInput';
 import AuthWrapper from '../AuthWrapper';
@@ -39,7 +39,7 @@ const SignIn = (props) => {
   };
 
   const handleGoogleSignIn = () => {
-    dispatch(signInWithGoogle());
+    dispatch(googleSignInStart());
   };
 
   const configAuthWrapper = {

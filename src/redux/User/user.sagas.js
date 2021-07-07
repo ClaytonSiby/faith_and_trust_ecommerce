@@ -11,6 +11,7 @@ import {
 } from './user.actions';
 import handleResetPasswordAPI from './user.helpers';
 
+// use the firebase utility function ( handleUserProfile ) to sign the user in
 export function* getSnapshotFromUserAuth(user, additionalData = {}) {
   try {
     const userRef = yield call(handleUserProfile, { userAuth: user, additionalData });
@@ -108,6 +109,19 @@ export function* onResetPasswordStart() {
   yield takeLatest(userTypes.RESET_PASSWORD_START, resetPassword);
 }
 
+export function* googleSignIn() {
+  try {
+    const { user } = yield auth.signInWithPopup(GoogleProvider);
+    yield getSnapshotFromUserAuth(user);
+  } catch (error) {
+    // console.log(error);
+  }
+}
+
+export function* onGoogleSignInStart() {
+  yield takeLatest(userTypes.GOOGLE_SIGN_IN_START, googleSignIn);
+}
+
 // more like rootReducer
 export default function* userSagas() {
   yield all([
@@ -115,5 +129,6 @@ export default function* userSagas() {
     call(onCheckUserSession),
     call(onSignOutUserStart),
     call(onSignUpUserStart),
-    call(onResetPasswordStart)]);
+    call(onResetPasswordStart),
+    call(onGoogleSignInStart)]);
 }
