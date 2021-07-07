@@ -7,8 +7,9 @@ import {
 } from '../../Firebase/utils';
 import userTypes from './user.types';
 import {
-  signInSuccess, signOutUserSuccess, userError,
+  signInSuccess, signOutUserSuccess, userError, resetPasswordSuccess,
 } from './user.actions';
+import handleResetPasswordAPI from './user.helpers';
 
 export function* getSnapshotFromUserAuth(user, additionalData = {}) {
   try {
@@ -94,11 +95,25 @@ export function* onSignUpUserStart() {
   yield takeLatest(userTypes.SIGN_UP_USER_START, signUpUser);
 }
 
+export function* resetPassword({ payload: { email } }) {
+  try {
+    yield call(handleResetPasswordAPI, email);
+    yield put(resetPasswordSuccess());
+  } catch (error) {
+    yield put(userError(error));
+  }
+}
+
+export function* onResetPasswordStart() {
+  yield takeLatest(userTypes.RESET_PASSWORD_START, resetPassword);
+}
+
 // more like rootReducer
 export default function* userSagas() {
   yield all([
     call(onEmailSignInStart),
     call(onCheckUserSession),
     call(onSignOutUserStart),
-    call(onSignUpUserStart)]);
+    call(onSignUpUserStart),
+    call(onResetPasswordStart)]);
 }
