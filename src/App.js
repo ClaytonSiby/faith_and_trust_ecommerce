@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { checkUserSession } from './redux/User/user.actions';
 
+// components
+import AdminToolbar from './components/AdminToolbar';
+
 // hoc
 import WithAuth from './hoc/withAuth';
 import WithAdminAuth from './hoc/withAdminAuth';
@@ -32,6 +35,7 @@ const App = () => {
 
   return (
     <main className="App">
+      <AdminToolbar />
       <Switch>
         <Route
           exact
