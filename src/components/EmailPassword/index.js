@@ -9,7 +9,6 @@ import AuthWrapper from '../AuthWrapper';
 import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
 import { resetPasswordStart, resetUserState } from '../../redux/User/user.actions';
-import './styles.scss';
 
 const mapState = ({ user }) => ({
   resetPasswordSuccess: user.resetPasswordSuccess,
