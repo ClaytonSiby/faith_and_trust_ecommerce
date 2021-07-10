@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
@@ -7,16 +8,14 @@ import './styles.scss';
 const Modal = ({ hideModal, toggleModal, children }) => {
   if (hideModal) return null;
 
-  return (
-    <>
-      <div className="modalOverlay" onClick={() => toggleModal()} />
-      <div className="modalWrap">
-        <div className="modal">
-          { children }
-        </div>
+  return [
+    <div className="modalOverlay" onClick={() => toggleModal()} />,
+    <div className="modalWrap">
+      <div className="theModal">
+        {children}
       </div>
-    </>
-  );
+    </div>,
+  ];
 };
 
 Modal.propTypes = {

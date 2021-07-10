@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -8,7 +9,6 @@ const mapState = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
-// eslint-disable-next-line react/prop-types
 const VerticalNav = ({ children }) => {
   const { currentUser } = useSelector(mapState);
 
@@ -18,10 +18,11 @@ const VerticalNav = ({ children }) => {
 
   return (
     <div className="verticalNav">
+
       <UserProfile {...configUserProfile} />
 
       <div className="menu">
-        { children }
+        {children}
       </div>
     </div>
   );
