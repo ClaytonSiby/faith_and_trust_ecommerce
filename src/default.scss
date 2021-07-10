@@ -1,6 +1,6 @@
-html {
-  // font-size: 10px;
-}
+// html {
+//   // font-size: 10px;
+// }
 
 html,
 body,
@@ -50,13 +50,14 @@ a:hover {
   display: inline-block;
   width: 100%;
   min-height: 100%;
-  padding: 3rem 0 6rem 25.0rem;
+  padding: 3rem 0 6rem 25rem;
   border-bottom: 1px solid #d3d3d3;
 
   .sidebar {
     position: absolute;
-    top: 0; left: 0;
-    width: 25.0rem;
+    top: 0;
+    left: 0;
+    width: 25rem;
     height: 100%;
     z-index: 1;
     border-right: 1px solid #d3d3d3;
