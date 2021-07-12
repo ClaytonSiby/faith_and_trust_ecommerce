@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -33,7 +34,7 @@ const FormSelect = ({
 FormSelect.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   options: PropTypes.array.isRequired,
-  defaultValue: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
 };
