@@ -20,7 +20,7 @@ const Modal = ({ hideModal, toggleModal, children }) => {
 
 Modal.propTypes = {
   hideModal: PropTypes.bool.isRequired,
-  toggleModal: PropTypes.bool.isRequired,
+  toggleModal: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
