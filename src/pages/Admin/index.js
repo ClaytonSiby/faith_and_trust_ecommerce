@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addProductStart } from '../../redux/Products/products.actions';
 import Modal from '../../components/Modal';
 import FormInput from '../../components/Forms/FormInput';
 import FormSelect from '../../components/Forms/FormSelect';
@@ -7,8 +9,8 @@ import Button from '../../components/Forms/Button';
 import './styles.scss';
 
 const Admin = () => {
+  const dispatch = useDispatch();
   const [hideModal, setHideModal] = useState(true);
-  // eslint-disable-next-line no-unused-vars
   const [productCategory, setProductCategory] = useState('mens');
   const [productName, setProductName] = useState('');
   const [productThumbnail, setProductThumbnail] = useState('');
@@ -23,6 +25,13 @@ const Admin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    dispatch(addProductStart({
+      productCategory,
+      productName,
+      productThumbnail,
+      productPrice,
+    }));
   };
 
   return (
