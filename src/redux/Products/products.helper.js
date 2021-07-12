@@ -30,3 +30,16 @@ export const handleFetchProducts = () => new Promise((resolve, reject) => {
       reject(error);
     });
 });
+
+export const handleDeleteProduct = (documentID) => new Promise((resolve, reject) => {
+  firestore
+    .collection('products')
+    .doc(documentID)
+    .delete()
+    .then(() => {
+      resolve();
+    })
+    .catch((error) => {
+      reject(error);
+    });
+});

@@ -7,6 +7,7 @@ import {
 import {
   addProductStart,
   fetchProductsStart,
+  deleteProductStart,
 } from '../../redux/Products/products.actions';
 import Modal from '../../components/Modal';
 import FormInput from '../../components/Forms/FormInput';
@@ -126,9 +127,17 @@ const Admin = () => {
         </Row>
         <Row>
           {products.map((product) => {
-            const { productName, productThumbnail, productPrice } = product;
+            const {
+              productName, productThumbnail, productPrice, documentID,
+            } = product;
             return (
-              <Col xs={12} sm={12} md={4} lg={3} key={Math.floor(Math.random() * productPrice)}>
+              <Col
+                xs={12}
+                sm={12}
+                md={4}
+                lg={3}
+                key={Math.floor(Math.random() * productPrice)}
+              >
                 <Card>
                   <Card.Img
                     variant="top"
@@ -139,9 +148,13 @@ const Admin = () => {
                     <Card.Title>{productName}</Card.Title>
                     <Card.Text>
                       $
-                      {' '}
                       {productPrice}
                     </Card.Text>
+                    <Button
+                      onClick={() => dispatch(deleteProductStart(documentID))}
+                    >
+                      Delete Product
+                    </Button>
                   </Card.Body>
                 </Card>
               </Col>
