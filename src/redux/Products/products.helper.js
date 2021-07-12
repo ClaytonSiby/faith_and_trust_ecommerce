@@ -13,3 +13,20 @@ export const handleAddProduct = (product) => new Promise((resolve, reject) => {
       reject(error);
     });
 });
+
+export const handleFetchProducts = () => new Promise((resolve, reject) => {
+  firestore
+    .collection('products')
+    .get()
+    .then((snapshot) => {
+      const productsArray = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        documentID: doc.id,
+      }));
+
+      resolve(productsArray);
+    })
+    .catch((error) => {
+      reject(error);
+    });
+});
