@@ -4,6 +4,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signOutUserStart } from '../../redux/User/user.actions';
+import Logo from '../../assets/logo.png';
 import './styles.scss';
 
 const mapState = ({ user }) => ({
@@ -23,7 +24,7 @@ const Header = () => {
       <div className="wrap">
         <div className="logo">
           <Link to="/">
-            <img src="" alt="faithNTrust" />
+            <img src={Logo} alt="faithNTrust" />
           </Link>
         </div>
 

@@ -4,27 +4,27 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 const FormSelect = ({
-  options, defaultValue, handleChange, label,
-}, ...otherProps) => {
+  options, defaultValue, handleChange, label, ...otherProps
+}) => {
   if (!Array.isArray(options) || options.length < 1) return null;
 
   return (
     <div className="formRow">
-      { label && (
-      // eslint-disable-next-line jsx-a11y/label-has-associated-control
-      <label>{label}</label>
+      {label && (
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control
+        <label>
+          {label}
+        </label>
       )}
 
-      <select className="formSelect" vlaue={defaultValue} onChange={handleChange} {...otherProps}>
-        {
-                    options.map((option) => {
-                      const { value, name } = option;
+      <select className="formSelect" value={defaultValue} onChange={handleChange} {...otherProps}>
+        {options.map((option) => {
+          const { value, name } = option;
 
-                      return (
-                        <option key={new Date()} value={value}>{name}</option>
-                      );
-                    })
-                }
+          return (
+            <option key={Math.random() * 10} value={value}>{name}</option>
+          );
+        })}
       </select>
     </div>
   );
