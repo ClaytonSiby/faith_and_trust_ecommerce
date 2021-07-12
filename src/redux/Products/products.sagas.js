@@ -4,7 +4,7 @@ import {
 import { auth } from '../../Firebase/utils';
 import { handleAddProduct, handleFetchProducts } from './products.helper';
 import productsTypes from './products.types';
-import { setProducts } from './products.actions';
+import { setProducts, fetchProductsStart } from './products.actions';
 
 export function* addProduct({
   payload: {
@@ -21,6 +21,11 @@ export function* addProduct({
       productAdminUserUID: auth.currentUser.uid,
       createdDate: timestamp,
     });
+
+    // fetch the data immediately after creating a new product.
+    yield put(
+      fetchProductsStart(),
+    );
   } catch (error) {
     // console.log(error);
   }

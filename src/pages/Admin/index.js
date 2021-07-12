@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  Container, Row, Col, Card,
+} from 'react-bootstrap';
+import {
   addProductStart,
   fetchProductsStart,
 } from '../../redux/Products/products.actions';
@@ -17,7 +20,6 @@ const mapState = ({ productsData }) => ({
 
 const Admin = () => {
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-unused-vars
   const { products } = useSelector(mapState);
   const [hideModal, setHideModal] = useState(true);
   const [productCategory, setProductCategory] = useState('mens');
@@ -36,6 +38,14 @@ const Admin = () => {
     toggleModal,
   };
 
+  const resetForm = () => {
+    setHideModal(true);
+    setProductCategory('mens');
+    setProductName('');
+    setProductThumbnail('');
+    setProductPrice(0);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -47,6 +57,7 @@ const Admin = () => {
         productPrice,
       }),
     );
+    resetForm();
   };
 
   return (
@@ -107,6 +118,37 @@ const Admin = () => {
           </form>
         </div>
       </Modal>
+      <Container fluid className="p-0">
+        <Row>
+          <Col xs={12}>
+            <h1>Manage Products</h1>
+          </Col>
+        </Row>
+        <Row>
+          {products.map((product) => {
+            const { productName, productThumbnail, productPrice } = product;
+            return (
+              <Col xs={12} sm={12} md={4} lg={3} key={Math.floor(Math.random() * productPrice)}>
+                <Card>
+                  <Card.Img
+                    variant="top"
+                    src={productThumbnail}
+                    alt="product thumbnail"
+                  />
+                  <Card.Body>
+                    <Card.Title>{productName}</Card.Title>
+                    <Card.Text>
+                      $
+                      {' '}
+                      {productPrice}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
     </div>
   );
 };
