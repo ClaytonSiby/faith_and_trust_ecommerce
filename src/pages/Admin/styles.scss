@@ -41,6 +41,11 @@
   }
 }
 
+.card {
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
 @media only screen and (max-width: 980px) {
   .manageProducts {
     table {

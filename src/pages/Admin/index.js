@@ -134,8 +134,8 @@ const Admin = () => {
               <Col
                 xs={12}
                 sm={12}
-                md={4}
-                lg={3}
+                md={3}
+                lg={4}
                 key={Math.floor(Math.random() * productPrice)}
               >
                 <Card>
