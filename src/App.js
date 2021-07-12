@@ -19,6 +19,7 @@ import DashboardLayout from './Layouts/DashboardLayout';
 
 // pages
 import Homepage from './pages/Homepage';
+import Search from './pages/Search';
 import Registration from './pages/Registration';
 import Recovery from './pages/Recovery';
 import Admin from './pages/Admin';
@@ -46,6 +47,14 @@ const App = () => {
             <HomepageLayout>
               <Homepage />
             </HomepageLayout>
+          )}
+        />
+        <Route
+          path="/search"
+          render={() => (
+            <MainLayout>
+              <Search />
+            </MainLayout>
           )}
         />
         <Route
