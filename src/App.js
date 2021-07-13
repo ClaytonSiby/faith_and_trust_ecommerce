@@ -50,7 +50,16 @@ const App = () => {
           )}
         />
         <Route
+          exact
           path="/search"
+          render={() => (
+            <MainLayout>
+              <Search />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/search/:filterType"
           render={() => (
             <MainLayout>
               <Search />
