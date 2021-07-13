@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
@@ -81,7 +82,7 @@ const SignIn = () => {
 };
 
 SignIn.propTypes = {
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object,
 };
 
 export default SignIn;

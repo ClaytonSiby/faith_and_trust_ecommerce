@@ -4,6 +4,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signOutUserStart } from '../../redux/User/user.actions';
+// import Logo from '../../assets/logo.png';
 import './styles.scss';
 
 const mapState = ({ user }) => ({
@@ -26,6 +27,17 @@ const Header = () => {
             <img src="" alt="faithNTrust" />
           </Link>
         </div>
+
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/search">Search</Link>
+            </li>
+          </ul>
+        </nav>
 
         <div className="callToActions">
           {
