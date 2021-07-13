@@ -26,7 +26,7 @@ then:
 
 ## :handshake: Contributing 
 
-* Contributions, issues and feature requests are welcome! Feel free to check the [issues page](https://github.com/ClaytonSiby/MealsCatalogue-Application/issues)
+* Contributions, issues and feature requests are welcome! Feel free to check the [issues page](https://github.com/ClaytonSiby/faith_and_trust_ecommerce/issues)
 - To contribute to this project:
 - Fork this repository & clone locally.
 - Create an upstream remote and sync your local copy.
