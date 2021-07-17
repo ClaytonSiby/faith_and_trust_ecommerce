@@ -89,13 +89,11 @@ const ProductResults = () => {
           ) return null;
 
           const configProduct = {
-            productThumbnail,
-            productName,
-            productPrice,
+            ...product,
           };
 
           return (
-            <Col key={productThumbnail} sm={6} md={4} lg={3} xlg={3}>
+            <Col key={configProduct.productThumbnail} sm={6} md={4} lg={3} xlg={3}>
               <Product {...configProduct} />
             </Col>
           );

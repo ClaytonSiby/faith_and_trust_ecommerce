@@ -69,7 +69,7 @@ export const handleFetchProduct = (productID) => new Promise((resolve, reject) =
     .get()
     .then((snapshot) => {
       if (snapshot.exists) {
-        resolve(snapshot.data);
+        resolve(snapshot.data());
       }
     })
     .catch((error) => {

@@ -1,5 +1,6 @@
 import React from 'react';
+import ProductCard from '../../components/ProductCard';
 
-const ProductDetails = () => <div>The Details</div>;
+const ProductDetails = () => <ProductCard />;
 
 export default ProductDetails;
