@@ -13,6 +13,7 @@ import Modal from '../../components/Modal';
 import FormInput from '../../components/Forms/FormInput';
 import FormSelect from '../../components/Forms/FormSelect';
 import Button from '../../components/Forms/Button';
+import LoadMore from '../../components/LoadMore';
 import './styles.scss';
 
 const mapState = ({ productsData }) => ({
@@ -28,7 +29,7 @@ const Admin = () => {
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
 
-  const { data } = products;
+  const { data, queryDoc, isLastPage } = products;
 
   useEffect(() => {
     dispatch(fetchProductsStart());
@@ -61,6 +62,19 @@ const Admin = () => {
       }),
     );
     resetForm();
+  };
+
+  const handleLoadMore = () => {
+    dispatch(
+      fetchProductsStart({
+        startAfterDoc: queryDoc,
+        persistProducts: data,
+      }),
+    );
+  };
+
+  const configLoadMore = {
+    onLoadMoreEvent: handleLoadMore,
   };
 
   return (
@@ -165,6 +179,10 @@ const Admin = () => {
               </Col>
             );
           })}
+
+          <Col sm={12} className="my-12">
+            { !isLastPage && <LoadMore {...configLoadMore} /> }
+          </Col>
         </Row>
       </Container>
     </div>
