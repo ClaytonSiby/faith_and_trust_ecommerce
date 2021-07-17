@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
@@ -16,7 +17,9 @@ const ProductCard = () => {
   const { product } = useSelector(mapState);
   const { productID } = useParams();
 
-  const { productThumbnail, productName, productPrice } = product;
+  const {
+    productThumbnail, productName, productPrice, productDescription,
+  } = product;
 
   useEffect(() => {
     dispatch(fetchProductStart(productID));
@@ -48,6 +51,9 @@ const ProductCard = () => {
             <div className="addToCart">
               <Button {...configAddToCartBtn}>Add To Cart</Button>
             </div>
+          </li>
+          <li>
+            <span dangerouslySetInnerHTML={{ __html: productDescription }} />
           </li>
         </ul>
       </div>

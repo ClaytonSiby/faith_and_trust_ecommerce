@@ -12,17 +12,12 @@ import productsTypes from './products.types';
 import { setProducts, fetchProductsStart, setProduct } from './products.actions';
 
 export function* addProduct({
-  payload: {
-    productCategory, productName, productThumbnail, productPrice,
-  },
+  payload,
 }) {
   try {
     const timestamp = new Date();
     yield handleAddProduct({
-      productCategory,
-      productName,
-      productThumbnail,
-      productPrice,
+      ...payload,
       productAdminUserUID: auth.currentUser.uid,
       createdDate: timestamp,
     });

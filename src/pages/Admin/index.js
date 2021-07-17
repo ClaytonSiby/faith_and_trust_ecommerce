@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container, Row, Col, Card,
 } from 'react-bootstrap';
+import { CKEditor } from 'ckeditor4-react';
 import {
   addProductStart,
   fetchProductsStart,
@@ -28,6 +30,7 @@ const Admin = () => {
   const [productName, setProductName] = useState('');
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
+  const [productDescription, setProductDescription] = useState('');
 
   const { data, queryDoc, isLastPage } = products;
 
@@ -48,6 +51,7 @@ const Admin = () => {
     setProductName('');
     setProductThumbnail('');
     setProductPrice(0);
+    setProductDescription('');
   };
 
   const handleSubmit = (e) => {
@@ -59,6 +63,7 @@ const Admin = () => {
         productName,
         productThumbnail,
         productPrice,
+        productDescription,
       }),
     );
     resetForm();
@@ -136,6 +141,10 @@ const Admin = () => {
                     step="0.01"
                     value={productPrice}
                     handleChange={(e) => setProductPrice(e.target.value)}
+                  />
+
+                  <CKEditor
+                    onChange={(event) => setProductDescription(event.editor.getData())}
                   />
 
                   <Button type="submit">Add product</Button>
