@@ -4,7 +4,11 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
+import { Card } from 'react-bootstrap';
+import {
+  fetchProductStart,
+  setProduct,
+} from '../../redux/Products/products.actions';
 import Button from '../Forms/Button';
 import './styles.scss';
 
@@ -34,30 +38,18 @@ const ProductCard = () => {
   };
 
   return (
-    <div className="productCard">
-      <div className="hero">
-        <img src={productThumbnail} alt="hero thumbnail" />
-      </div>
-      <div className="productDetails">
-        <ul>
-          <li><h1>{ productName }</h1></li>
-          <li>
-            <span>
-              $
-              {productPrice}
-            </span>
-          </li>
-          <li>
-            <div className="addToCart">
-              <Button {...configAddToCartBtn}>Add To Cart</Button>
-            </div>
-          </li>
-          <li>
-            <span dangerouslySetInnerHTML={{ __html: productDescription }} />
-          </li>
-        </ul>
-      </div>
-    </div>
+    <Card className="productDetails">
+      <Card.Img className="theImage" variant="top" src={productThumbnail} />
+      <Card.Body>
+        <Card.Title>{ productName }</Card.Title>
+        <Card.Text dangerouslySetInnerHTML={{ __html: productDescription }} />
+        <p>
+          $
+          {productPrice}
+        </p>
+        <Button variant="primary">Go somewhere</Button>
+      </Card.Body>
+    </Card>
   );
 };
 
