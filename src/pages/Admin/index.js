@@ -28,6 +28,8 @@ const Admin = () => {
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
 
+  const { data } = products;
+
   useEffect(() => {
     dispatch(fetchProductsStart());
   }, []);
@@ -126,7 +128,7 @@ const Admin = () => {
           </Col>
         </Row>
         <Row>
-          {products.map((product) => {
+          {(Array.isArray(data) && data.length > 0) && data.map((product) => {
             const {
               productName, productThumbnail, productPrice, documentID,
             } = product;

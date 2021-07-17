@@ -36,13 +36,11 @@ export function* onAddProductStart() {
 }
 
 export function* fetchProducts({
-  payload: {
-    filterType,
-  },
+  payload,
 }) {
   try {
     // yield will make an async action and wait for the response.
-    const products = yield handleFetchProducts({ filterType });
+    const products = yield handleFetchProducts({ payload });
 
     yield put(setProducts(products));
   } catch (error) {
