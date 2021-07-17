@@ -95,11 +95,8 @@ const ProductResults = () => {
           };
 
           return (
-            <Col sm={6} md={4} lg={4} xlg={4}>
-              <Product
-                key={Math.floor(Math.random() * productPrice)}
-                {...configProduct}
-              />
+            <Col key={Math.floor(Math.random() * productPrice)} sm={6} md={4} lg={4} xlg={4}>
+              <Product {...configProduct} />
             </Col>
           );
         })}

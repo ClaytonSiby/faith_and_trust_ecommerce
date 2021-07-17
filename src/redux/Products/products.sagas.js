@@ -35,12 +35,10 @@ export function* onAddProductStart() {
   yield takeLatest(productsTypes.ADD_NEW_PRODUCT_START, addProduct);
 }
 
-export function* fetchProducts({
-  payload,
-}) {
+export function* fetchProducts({ payload: { filterType } }) {
   try {
     // yield will make an async action and wait for the response.
-    const products = yield handleFetchProducts({ payload });
+    const products = yield handleFetchProducts({ filterType });
 
     yield put(setProducts(products));
   } catch (error) {

@@ -36,7 +36,7 @@ FormSelect.propTypes = {
   options: PropTypes.array.isRequired,
   defaultValue: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
 };
 
 export default FormSelect;
