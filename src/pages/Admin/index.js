@@ -141,7 +141,7 @@ const Admin = () => {
                 sm={12}
                 md={3}
                 lg={4}
-                key={Math.floor(Math.random() * productPrice)}
+                key={productThumbnail}
               >
                 <Card>
                   <Card.Img

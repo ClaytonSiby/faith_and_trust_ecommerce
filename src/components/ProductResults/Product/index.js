@@ -13,8 +13,8 @@ const Product = ({ productThumbnail, productName, productPrice }) => {
   };
 
   return (
-    <Card>
-      <Card.Img variant="top" src={productThumbnail} />
+    <Card className="my-2">
+      <Card.Img variant="top" className="p-0" src={productThumbnail} />
       <Card.Body>
         <Card.Title>{ productName }</Card.Title>
         <Card.Text>

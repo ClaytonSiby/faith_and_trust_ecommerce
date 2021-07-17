@@ -122,3 +122,9 @@ a:hover {
     }
   }
 }
+
+.card-img-top {
+  width: 100% !important;
+  height: 10rem !important;
+  object-fit: cover;
+}

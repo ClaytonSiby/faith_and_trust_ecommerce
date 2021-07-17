@@ -17,9 +17,9 @@ export const handleAddProduct = (product) => new Promise((resolve, reject) => {
 export const handleFetchProducts = ({
   filterType, startAfterDoc, persistProducts = [],
 }) => new Promise((resolve, reject) => {
-  const pageSize = 8;
+  // const pageSize = 8;
 
-  let ref = firestore.collection('products').orderBy('createdDate').limit(pageSize);
+  let ref = firestore.collection('products').orderBy('createdDate');
 
   if (filterType) ref = ref.where('productCategory', '==', filterType);
 
