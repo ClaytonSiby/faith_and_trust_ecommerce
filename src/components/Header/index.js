@@ -4,16 +4,18 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signOutUserStart } from '../../redux/User/user.actions';
+import { selectCartItemsCount } from '../../redux/Cart/cart.selectors';
 // import Logo from '../../assets/logo.png';
 import './styles.scss';
 
-const mapState = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapState = (state) => ({
+  currentUser: state.user.currentUser,
+  totalNumberOfCartItems: selectCartItemsCount(state),
 });
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, totalNumberOfCartItems } = useSelector(mapState);
 
   const signOut = () => {
     dispatch(signOutUserStart());
@@ -40,26 +42,32 @@ const Header = () => {
         </nav>
 
         <div className="callToActions">
-          {
-            currentUser && (
-              <ul>
-                <li>
-                  <Link to="/dashboard">My Account</Link>
-                </li>
-                <li><span onClick={() => signOut()}>LOGOUT</span></li>
-              </ul>
-            )
-          }
-          {!currentUser && (
           <ul>
-            <li>
-              <Link to="/registration">Register</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
+            {currentUser && [
+              <li key={0}>
+                <Link to="/cart">
+                  Your Cart &nbsp;
+                  (
+                  {totalNumberOfCartItems}
+                  )
+                </Link>
+              </li>,
+              <li key={1}>
+                <Link to="/dashboard">My Account</Link>
+              </li>,
+              <li key={2}>
+                <span onClick={() => signOut()}>LOGOUT</span>
+              </li>,
+            ]}
+            {!currentUser && [
+              <li key={3}>
+                <Link to="/registration">Register</Link>
+              </li>,
+              <li key={4}>
+                <Link to="/login">Login</Link>
+              </li>,
+            ]}
           </ul>
-          )}
         </div>
       </div>
     </header>
