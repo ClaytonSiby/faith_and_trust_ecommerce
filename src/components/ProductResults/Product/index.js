@@ -24,7 +24,7 @@ const Product = ({
   };
 
   return (
-    <Card className="my-2">
+    <Card className="my-2 main">
       <Link to={`/product/${documentID}`}>
         <Card.Img variant="top" className="p-0" src={productThumbnail} />
       </Link>
