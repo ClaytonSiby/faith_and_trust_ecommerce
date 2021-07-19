@@ -1,17 +1,22 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import Button from '../../Forms/Button';
+import { addProduct } from '../../../redux/Cart/cart.actions';
 import './styles.scss';
 
-const Product = ({
-  documentID,
-  productThumbnail,
-  productName,
-  productPrice,
-}) => {
+const Product = (product) => {
+  const {
+    documentID,
+    productThumbnail,
+    productName,
+    productPrice,
+  } = product;
+  const dispatch = useDispatch();
+
   if (
     !documentID
     || !productThumbnail
@@ -21,6 +26,12 @@ const Product = ({
 
   const configAddToCart = {
     type: 'button',
+  };
+
+  const handleAddToCart = (product) => {
+    if (!product) return;
+
+    dispatch(addProduct(product));
   };
 
   return (
@@ -34,7 +45,7 @@ const Product = ({
           $
           {productPrice}
         </Card.Text>
-        <Button {...configAddToCart}>Add To Cart</Button>
+        <Button {...configAddToCart} onClick={() => handleAddToCart(product)}>Add To Cart</Button>
       </Card.Body>
     </Card>
   );

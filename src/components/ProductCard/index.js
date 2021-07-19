@@ -9,6 +9,7 @@ import {
   fetchProductStart,
   setProduct,
 } from '../../redux/Products/products.actions';
+import { addProduct } from '../../redux/Cart/cart.actions';
 import Button from '../Forms/Button';
 import './styles.scss';
 
@@ -37,17 +38,23 @@ const ProductCard = () => {
     type: 'button',
   };
 
+  const handleAddProductToCart = (product) => {
+    if (!product) return;
+
+    dispatch(addProduct(product));
+  };
+
   return (
     <Card className="productDetails">
       <Card.Img className="theImage" variant="top" src={productThumbnail} />
       <Card.Body>
         <Card.Title>{ productName }</Card.Title>
-        <Card.Text dangerouslySetInnerHTML={{ __html: productDescription }} />
         <p>
           $
           {productPrice}
         </p>
-        <Button variant="primary">Go somewhere</Button>
+        <Button variant="primary" onClick={() => handleAddProductToCart(product)}>Add To Cart</Button>
+        <Card.Text dangerouslySetInnerHTML={{ __html: productDescription }} />
       </Card.Body>
     </Card>
   );
