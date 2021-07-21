@@ -1,10 +1,13 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useSelector } from 'react-redux';
+import {
+  Card, Container, Col, Row,
+} from 'react-bootstrap';
 import { createStructuredSelector } from 'reselect';
 import Button from '../Forms/Button';
 import { selectCartItems } from '../../redux/Cart/cart.selectors';
-import Item from './Item';
 import './styles.scss';
 
 const mapState = createStructuredSelector({
@@ -15,67 +18,59 @@ const Checkout = () => {
   const { cartItems } = useSelector(mapState);
 
   return (
-    <div className="checkout">
-      <h1>Checkout</h1>
+    <Container>
+      <h2 className="p-0">Checkout</h2>
 
-      <div className="cart">
-        <table border="0" cellPadding="0" cellSpacing="0">
-          <tbody>
-            <tr>
-              <table className="checkoutHeader" border="0" cellPadding="0" cellSpacing="0">
-                <tbody>
-                  <tr>
-                    <th>Product</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Remove</th>
-                  </tr>
-                </tbody>
-              </table>
-            </tr>
-            <tr>
-              <table border="0" cellSpacing="0" cellPadding="0">
-                <tbody>
-                  {
-                    cartItems.map((item) => (
-                      <tr key={item.documentID}>
-                        <Item {...item} />
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-            </tr>
-            <tr>
-              <table algin="right" border="0" cellSpacing="0" cellPadding="0">
-                <tbody>
-                  <tr algin="right">
-                    <td>
-                      <h3>Total: </h3>
-                    </td>
-                  </tr>
-                  <tr>
-                    <table border="0" cellPadding="10" cellSpacing="0">
-                      <tbody>
-                        <tr>
-                          <td>
-                            <Button>Continue Shopping</Button>
-                          </td>
-                          <td>
-                            <Button>CheckOut</Button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </tr>
-                </tbody>
-              </table>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <Row className="cart">
+        {
+          cartItems.length > 0 ? cartItems.map((product) => {
+            const {
+              documentID, productName, productThumbnail, productDescription, productPrice,
+            } = product;
+
+            return (
+              <Col key={documentID} sm={12} className="my-2">
+                <Card>
+                  <Row>
+                    <Col md={5}>
+                      <Card.Img variant="top" src={productThumbnail} alt={productName} />
+                    </Col>
+                    <Col>
+                      <Card.Body>
+                        <Card.Title>{ productName }</Card.Title>
+                        <div>
+                          <Card.Text>
+                            <span>
+                              $
+                              { productPrice }
+                            </span>
+                          </Card.Text>
+                          <p dangerouslySetInnerHTML={{ __html: productDescription }} />
+                        </div>
+                      </Card.Body>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            );
+          }) : <p className="mx-3">You have no Items in your Cart.</p>
+        }
+        {
+          cartItems.length > 0 && (
+            <Col>
+              <Row>
+                <Col sm={12} md={6}>
+                  <Button type="Button">Continue Shopping</Button>
+                </Col>
+                <Col sm={12} md={6}>
+                  <Button type="Button">CheckOut</Button>
+                </Col>
+              </Row>
+            </Col>
+          )
+        }
+      </Row>
+    </Container>
   );
 };
 

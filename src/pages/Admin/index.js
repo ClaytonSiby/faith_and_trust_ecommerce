@@ -164,7 +164,7 @@ const Admin = () => {
                 sm={12}
                 md={3}
                 lg={4}
-                key={productThumbnail}
+                key={documentID}
               >
                 <Card>
                   <Card.Img
