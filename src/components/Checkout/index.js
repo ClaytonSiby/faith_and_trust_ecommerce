@@ -1,77 +1,92 @@
-/* eslint-disable react/no-danger */
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-  Card, Container, Col, Row,
-} from 'react-bootstrap';
 import { createStructuredSelector } from 'reselect';
-import Button from '../Forms/Button';
 import { selectCartItems } from '../../redux/Cart/cart.selectors';
-import './styles.scss';
+import Button from '../Forms/Button';
 
 const mapState = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
-const Checkout = () => {
+const CheckOut = () => {
   const { cartItems } = useSelector(mapState);
 
   return (
-    <Container>
-      <h2 className="p-0">Checkout</h2>
+    <div className="checkout">
+      <h1>CheckOut</h1>
 
-      <Row className="cart">
-        {
-          cartItems.length > 0 ? cartItems.map((product) => {
-            const {
-              documentID, productName, productThumbnail, productDescription, productPrice,
-            } = product;
+      <div className="cart">
+        <table border="0" cellPadding="0" cellSpacing="0">
+          <tbody>
+            <tr>
+              <td>
+                <table className="checkoutHeader" border="0" cellPadding="0" cellSpacing="0">
+                  <tbody>
+                    <tr>
+                      <th>Product</th>
+                      <th>Description</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Remove</th>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
 
-            return (
-              <Col key={documentID} sm={12} className="my-2">
-                <Card>
-                  <Row>
-                    <Col md={5}>
-                      <Card.Img variant="top" src={productThumbnail} alt={productName} />
-                    </Col>
-                    <Col>
-                      <Card.Body>
-                        <Card.Title>{ productName }</Card.Title>
-                        <div>
-                          <Card.Text>
-                            <span>
-                              $
-                              { productPrice }
-                            </span>
-                          </Card.Text>
-                          <p dangerouslySetInnerHTML={{ __html: productDescription }} />
-                        </div>
-                      </Card.Body>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-            );
-          }) : <p className="mx-3">You have no Items in your Cart.</p>
-        }
-        {
-          cartItems.length > 0 && (
-            <Col>
-              <Row>
-                <Col sm={12} md={6}>
-                  <Button type="Button">Continue Shopping</Button>
-                </Col>
-                <Col sm={12} md={6}>
-                  <Button type="Button">CheckOut</Button>
-                </Col>
-              </Row>
-            </Col>
-          )
-        }
-      </Row>
-    </Container>
+            <tr>
+              <td>
+                <table border="0" cellPadding="0" cellSpacing="0">
+                  <tbody>
+                    {
+                    cartItems.map((item) => (
+                      <tr key={item.documentID}>
+                        <td>
+                          { item.productName}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <table algin="right" border="0" cellSpacing="0" cellPadding="10">
+                  <tbody>
+                    <tr algin="right">
+                      <td>
+                        <h3>Total: </h3>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <table border="0" cellSpacing="0" cellPadding="10">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <Button>Continue Shopping</Button>
+                              </td>
+                              <td>
+                                <Button>Checkout</Button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 
-export default Checkout;
+export default CheckOut;
