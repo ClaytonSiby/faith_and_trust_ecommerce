@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container, Row, Col, Card,
 } from 'react-bootstrap';
+import { CKEditor } from 'ckeditor4-react';
 import {
   addProductStart,
   fetchProductsStart,
@@ -13,6 +15,7 @@ import Modal from '../../components/Modal';
 import FormInput from '../../components/Forms/FormInput';
 import FormSelect from '../../components/Forms/FormSelect';
 import Button from '../../components/Forms/Button';
+import LoadMore from '../../components/LoadMore';
 import './styles.scss';
 
 const mapState = ({ productsData }) => ({
@@ -27,6 +30,9 @@ const Admin = () => {
   const [productName, setProductName] = useState('');
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
+  const [productDescription, setProductDescription] = useState('');
+
+  const { data, queryDoc, isLastPage } = products;
 
   useEffect(() => {
     dispatch(fetchProductsStart());
@@ -45,6 +51,7 @@ const Admin = () => {
     setProductName('');
     setProductThumbnail('');
     setProductPrice(0);
+    setProductDescription('');
   };
 
   const handleSubmit = (e) => {
@@ -56,77 +63,98 @@ const Admin = () => {
         productName,
         productThumbnail,
         productPrice,
+        productDescription,
       }),
     );
     resetForm();
   };
 
+  const handleLoadMore = () => {
+    dispatch(
+      fetchProductsStart({
+        startAfterDoc: queryDoc,
+        persistProducts: data,
+      }),
+    );
+  };
+
+  const configLoadMore = {
+    onLoadMoreEvent: handleLoadMore,
+  };
+
   return (
     <div className="admin">
-      <div className="callToActions">
-        <ul>
-          <li>
-            <Button onClick={() => toggleModal()}>Add new product</Button>
-          </li>
-        </ul>
-      </div>
-
-      <Modal {...configModal}>
-        <div className="addNewProductForm">
-          <form onSubmit={handleSubmit}>
-            <h2>Add new product</h2>
-
-            <FormSelect
-              label="Category"
-              options={[
-                {
-                  value: 'mens',
-                  name: 'Mens',
-                },
-                {
-                  value: 'womens',
-                  name: 'Womens',
-                },
-              ]}
-              handleChange={(e) => setProductCategory(e.target.value)}
-            />
-
-            <FormInput
-              label="Name"
-              type="text"
-              value={productName}
-              handleChange={(e) => setProductName(e.target.value)}
-            />
-
-            <FormInput
-              label="Main image URL"
-              type="url"
-              value={productThumbnail}
-              handleChange={(e) => setProductThumbnail(e.target.value)}
-            />
-
-            <FormInput
-              label="Price"
-              type="number"
-              min="0.00"
-              max="10000.00"
-              step="0.01"
-              value={productPrice}
-              handleChange={(e) => setProductPrice(e.target.value)}
-            />
-
-            <Button type="submit">Add product</Button>
-          </form>
-        </div>
-      </Modal>
       <Container fluid className="p-0">
         <Row>
           <Col xs={12}>
             <h1>Manage Products</h1>
           </Col>
+
+          <Col xs={12} className="my-2 mb-3">
+            <div className="callToActions">
+              <ul>
+                <li>
+                  <Button onClick={() => toggleModal()}>Add new product</Button>
+                </li>
+              </ul>
+            </div>
+
+            <Modal {...configModal}>
+              <div className="addNewProductForm">
+                <form onSubmit={handleSubmit}>
+                  <h2>Add new product</h2>
+
+                  <FormSelect
+                    label="Category"
+                    options={[
+                      {
+                        value: 'mens',
+                        name: 'Mens',
+                      },
+                      {
+                        value: 'womens',
+                        name: 'Womens',
+                      },
+                    ]}
+                    handleChange={(e) => setProductCategory(e.target.value)}
+                  />
+
+                  <FormInput
+                    label="Name"
+                    type="text"
+                    value={productName}
+                    handleChange={(e) => setProductName(e.target.value)}
+                  />
+
+                  <FormInput
+                    label="Main image URL"
+                    type="url"
+                    value={productThumbnail}
+                    handleChange={(e) => setProductThumbnail(e.target.value)}
+                  />
+
+                  <FormInput
+                    label="Price"
+                    type="number"
+                    min="0.00"
+                    max="10000.00"
+                    step="0.01"
+                    value={productPrice}
+                    handleChange={(e) => setProductPrice(e.target.value)}
+                  />
+
+                  <CKEditor
+                    onChange={(event) => setProductDescription(event.editor.getData())}
+                  />
+
+                  <Button type="submit">Add product</Button>
+                </form>
+              </div>
+            </Modal>
+          </Col>
         </Row>
         <Row>
-          {products.map((product) => {
+          {(Array.isArray(data) && data.length > 0) && data.map((product) => {
             const {
               productName, productThumbnail, productPrice, documentID,
             } = product;
@@ -136,7 +164,7 @@ const Admin = () => {
                 sm={12}
                 md={3}
                 lg={4}
-                key={Math.floor(Math.random() * productPrice)}
+                key={documentID}
               >
                 <Card>
                   <Card.Img
@@ -160,6 +188,10 @@ const Admin = () => {
               </Col>
             );
           })}
+
+          <Col sm={12} className="my-12">
+            { !isLastPage && <LoadMore {...configLoadMore} /> }
+          </Col>
         </Row>
       </Container>
     </div>

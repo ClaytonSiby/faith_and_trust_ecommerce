@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import FormSelect from '../Forms/FormSelect';
 import { fetchProductsStart } from '../../redux/Products/products.actions';
+import LoadMore from '../LoadMore';
 import Product from './Product';
 
 const mapState = ({ productsData }) => ({
@@ -18,6 +19,8 @@ const ProductResults = () => {
   const { filterType } = useParams();
   const { products } = useSelector(mapState);
 
+  const { data, queryDoc, isLastPage } = products;
+
   useEffect(() => {
     dispatch(fetchProductsStart({ filterType }));
   }, [filterType]);
@@ -27,9 +30,9 @@ const ProductResults = () => {
     history.push(`/search/${nextFilter}`);
   };
 
-  if (!Array.isArray(products)) return null;
+  if (!Array.isArray(data)) return null;
 
-  if (products.length < 1) {
+  if (data.length < 1) {
     return (
       <div className="products">
         <p>No search results found!</p>
@@ -51,43 +54,54 @@ const ProductResults = () => {
       {
         name: 'Womens',
         value: 'womens',
-      }],
+      },
+    ],
 
     handleChange: handleFilter,
+  };
+
+  const handleLoadMore = () => {
+    dispatch(
+      fetchProductsStart({
+        filterType,
+        startAfterDoc: queryDoc,
+        persistProducts: data,
+      }),
+    );
+  };
+
+  const configLoadMore = {
+    onLoadMoreEvent: handleLoadMore,
   };
 
   return (
     <Container fluid className="my-3 w-100 mx-0 p-0">
       <h1>Browse Products</h1>
       <FormSelect {...configFilters} />
-      <Row className="productResults">
-        {products.map((product) => {
+      <Row className="productResults my-2">
+        {data.map((product) => {
           const { productThumbnail, productName, productPrice } = product;
 
           if (
             !productThumbnail
-          || !productName
-          || typeof productPrice === 'undefined'
+            || !productName
+            || typeof productPrice === 'undefined'
           ) return null;
 
           const configProduct = {
-            productThumbnail,
-            productName,
-            productPrice,
+            ...product,
           };
 
           return (
-
-            <Col sm={6} md={4} lg={4} xlg={4}>
-              <Product
-                key={Math.floor(Math.random() * productPrice)}
-                {...configProduct}
-              />
+            <Col key={configProduct.productThumbnail} sm={6} md={4} lg={3} xlg={3}>
+              <Product {...configProduct} />
             </Col>
-
           );
         })}
       </Row>
+      {
+        !isLastPage && <LoadMore {...configLoadMore} />
+      }
     </Container>
   );
 };

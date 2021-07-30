@@ -25,6 +25,8 @@ import Recovery from './pages/Recovery';
 import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import ProductDetails from './pages/ProductDetails';
+import Cart from './pages/Cart';
 
 // styles
 import './default.scss';
@@ -63,6 +65,22 @@ const App = () => {
           render={() => (
             <MainLayout>
               <Search />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/product/:productID"
+          render={() => (
+            <MainLayout>
+              <ProductDetails />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/cart"
+          render={() => (
+            <MainLayout>
+              <Cart />
             </MainLayout>
           )}
         />
