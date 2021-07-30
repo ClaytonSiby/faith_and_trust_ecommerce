@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import {
@@ -19,6 +19,7 @@ const mapState = (state) => ({
 
 const ProductCard = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { product } = useSelector(mapState);
   const { productID } = useParams();
 
@@ -42,6 +43,7 @@ const ProductCard = () => {
     if (!product) return;
 
     dispatch(addProduct(product));
+    history.push('/cart');
   };
 
   return (
@@ -53,7 +55,7 @@ const ProductCard = () => {
           $
           {productPrice}
         </p>
-        <Button variant="primary" onClick={() => handleAddProductToCart(product)}>Add To Cart</Button>
+        <Button variant="primary" onClick={() => handleAddProductToCart(product)} {...configAddToCartBtn}>Add To Cart</Button>
         <Card.Text dangerouslySetInnerHTML={{ __html: productDescription }} />
       </Card.Body>
     </Card>

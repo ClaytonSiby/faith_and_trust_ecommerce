@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import Button from '../../Forms/Button';
@@ -16,6 +16,7 @@ const Product = (product) => {
     productPrice,
   } = product;
   const dispatch = useDispatch();
+  const history = useHistory();
 
   if (
     !documentID
@@ -32,6 +33,7 @@ const Product = (product) => {
     if (!product) return;
 
     dispatch(addProduct(product));
+    history.push('/cart');
   };
 
   return (
