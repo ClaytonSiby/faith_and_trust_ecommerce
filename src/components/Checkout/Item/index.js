@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { removeCartItem } from '../../../redux/Cart/cart.actions';
+import { removeCartItem, addProduct, reduceCartItem } from '../../../redux/Cart/cart.actions';
 
 const Item = (product) => {
   const dispatch = useDispatch();
@@ -16,6 +16,16 @@ const Item = (product) => {
     );
   };
 
+  const handleAddProduct = (product) => {
+    dispatch(addProduct(product));
+  };
+
+  const handleReduceItem = (product) => {
+    dispatch(
+      reduceCartItem(product),
+    );
+  };
+
   return (
 
     <table className="cartItem" border="0" cellSpacing="0" cellPadding="10">
@@ -26,9 +36,21 @@ const Item = (product) => {
           </td>
           <td>{productName}</td>
           <td>
+            <button type="button" onClick={() => handleReduceItem(product)} className="cartBtn font-weight-bold btn addRemove">
+              {' '}
+              { '<' }
+              {' '}
+            </button>
             <span>
+              &nbsp;
               {quantity}
+              &nbsp;
             </span>
+            <button type="button" onClick={() => handleAddProduct(product)} className="cartBtn font-weight-bold btn addRemove">
+              {' '}
+              {'>' }
+              {' '}
+            </button>
           </td>
           <td>
             $
@@ -36,7 +58,7 @@ const Item = (product) => {
             {productPrice}
           </td>
           <td align="center">
-            <button type="button" className="cartButton btn" onClick={() => handleRemoveCartItem(documentID)}>X</button>
+            <button type="button" className="cartButton btn font-weight-bold" onClick={() => handleRemoveCartItem(documentID)}>X</button>
           </td>
         </tr>
       </tbody>
