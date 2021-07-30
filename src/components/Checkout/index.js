@@ -13,35 +13,38 @@ const mapState = createStructuredSelector({
 
 const CheckOut = () => {
   const { cartItems } = useSelector(mapState);
+  const errorMessage = 'You have no items in your Cart';
 
   return (
     <div className="checkout">
       <h1>CheckOut</h1>
 
       <div className="cart">
-        <table border="0" cellPadding="0" cellSpacing="0">
-          <tbody>
-            <tr>
-              <td>
-                <table className="checkoutHeader" border="0" cellPadding="10" cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      <th>Product</th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Price</th>
-                      <th>Remove</th>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+        {
+          cartItems.length > 0 ? (
+            <table border="0" cellPadding="0" cellSpacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <table className="checkoutHeader" border="0" cellPadding="10" cellSpacing="0">
+                      <tbody>
+                        <tr>
+                          <th>Product</th>
+                          <th>Description</th>
+                          <th>Quantity</th>
+                          <th>Price</th>
+                          <th>Remove</th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
 
-            <tr>
-              <td>
-                <table border="0" cellPadding="0" cellSpacing="0">
-                  <tbody>
-                    {
+                <tr>
+                  <td>
+                    <table border="0" cellPadding="0" cellSpacing="0">
+                      <tbody>
+                        {
                     cartItems.map((item) => (
                       <tr key={item.documentID}>
                         <td>
@@ -50,43 +53,49 @@ const CheckOut = () => {
                       </tr>
                     ))
                   }
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
 
-            <tr>
-              <td>
-                <table algin="right" border="0" cellSpacing="0" cellPadding="10">
-                  <tbody>
-                    <tr algin="right">
-                      <td>
-                        <h3>Total: </h3>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <table border="0" cellSpacing="0" cellPadding="10">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <Button>Continue Shopping</Button>
-                              </td>
-                              <td>
-                                <Button>Checkout</Button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+                <tr>
+                  <td>
+                    <table algin="right" border="0" cellSpacing="0" cellPadding="10">
+                      <tbody>
+                        <tr algin="right">
+                          <td>
+                            <h3>Total: </h3>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table border="0" cellSpacing="0" cellPadding="10">
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <Button>Continue Shopping</Button>
+                                  </td>
+                                  <td>
+                                    <Button>Checkout</Button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
 
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+          ) : (
+            <p>
+              { errorMessage }
+            </p>
+          )
+        }
       </div>
     </div>
   );
