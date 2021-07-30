@@ -1,8 +1,11 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCartItems } from '../../redux/Cart/cart.selectors';
+import Item from './Item';
 import Button from '../Forms/Button';
+import './styles.scss';
 
 const mapState = createStructuredSelector({
   cartItems: selectCartItems,
@@ -20,7 +23,7 @@ const CheckOut = () => {
           <tbody>
             <tr>
               <td>
-                <table className="checkoutHeader" border="0" cellPadding="0" cellSpacing="0">
+                <table className="checkoutHeader" border="0" cellPadding="10" cellSpacing="0">
                   <tbody>
                     <tr>
                       <th>Product</th>
@@ -42,7 +45,7 @@ const CheckOut = () => {
                     cartItems.map((item) => (
                       <tr key={item.documentID}>
                         <td>
-                          { item.productName}
+                          <Item {...item} />
                         </td>
                       </tr>
                     ))
