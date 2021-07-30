@@ -26,7 +26,8 @@ export const handleAddToCart = ({ prevCartItems, nextCartItem }) => {
   ];
 };
 
-export const handleRemoveCartItem = ({
-  prevCartItems,
-  cartItemToRemove,
-}) => prevCartItems.filter((item) => item.documentID !== cartItemToRemove.documentID);
+export function handleRemoveCartItem({ prevCartItems, cartItemToRemove }) {
+  const cartItems = prevCartItems.filter((item) => item.documentID !== cartItemToRemove.documentID);
+
+  return cartItems;
+}

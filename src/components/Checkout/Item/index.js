@@ -1,10 +1,20 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { removeCartItem } from '../../../redux/Cart/cart.actions';
 
 const Item = (product) => {
+  const dispatch = useDispatch();
+
   const {
     productName, productThumbnail, productPrice, quantity, documentID,
   } = product;
+
+  const handleRemoveCartItem = (documentID) => {
+    dispatch(
+      removeCartItem({ documentID }),
+    );
+  };
 
   return (
 
@@ -26,7 +36,7 @@ const Item = (product) => {
             {productPrice}
           </td>
           <td align="center">
-            <span>X</span>
+            <button type="button" className="cartButton btn" onClick={() => handleRemoveCartItem(documentID)}>X</button>
           </td>
         </tr>
       </tbody>
