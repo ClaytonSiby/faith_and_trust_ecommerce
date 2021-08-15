@@ -27,6 +27,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
+import Payment from './pages/Payment';
 
 // styles
 import './default.scss';
@@ -81,6 +82,14 @@ const App = () => {
           render={() => (
             <MainLayout>
               <Cart />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/payment"
+          render={() => (
+            <MainLayout>
+              <Payment />
             </MainLayout>
           )}
         />
