@@ -1,23 +1,15 @@
 /* eslint-disable max-len */
 const functions = require("firebase-functions");
-
 const express = require("express");
-
 const cors = require("cors");
 const stripe = require("stripe")("sk_test_51JMAfNL7DaCgtjkMtoF0HRtiA3VmRj7nO7zOCYcD97L95ev5LOo5nmsMBwKRAnWGg0AQrEELBD5v7jwyi6gkFRS100VzncDk4s");
+
 const app = express();
 
 app.use(cors({
   origin: true,
 }));
-
 app.use(express.json());
-
-app.get("*", (req, res) => {
-  res
-      .status(404)
-      .send("404, Not Found.");
-});
 
 app.post("/payments/create", async (req, res) => {
   try {
@@ -41,5 +33,10 @@ app.post("/payments/create", async (req, res) => {
   }
 });
 
+app.get("*", (req, res) => {
+  res
+      .status(404)
+      .send("404, Not Found.");
+});
 
 exports.api = functions.https.onRequest(app);
