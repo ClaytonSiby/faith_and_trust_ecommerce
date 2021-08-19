@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { firestore } from '../../firebase/utils';
+import { firestore } from '../../Firebase/utils';
 
 export const handleSaveOrder = (order) => new Promise((resolve, reject) => {
   firestore

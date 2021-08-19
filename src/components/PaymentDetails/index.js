@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-return */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,8 +6,8 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { CountryDropdown } from 'react-country-region-selector';
 import { createStructuredSelector } from 'reselect';
 import { apiInstance } from '../../Utils';
-import { selectCartTotal, selectCartItemsCount } from '../../redux/Cart/cart.selectors';
-import { clearCart } from '../../redux/Cart/cart.actions';
+import { selectCartTotal, selectCartItemsCount, selectCartItems } from '../../redux/Cart/cart.selectors';
+import { saveOrderHistory } from '../../redux/Order/orders.actions';
 import FormInput from '../Forms/FormInput';
 import Button from '../Forms/Button';
 import './styles.scss';
@@ -25,6 +24,7 @@ const initialAddressState = {
 const mapState = createStructuredSelector({
   total: selectCartTotal,
   itemCount: selectCartItemsCount,
+  cartItems: selectCartItems,
 });
 
 const PaymentDetails = () => {
@@ -32,30 +32,33 @@ const PaymentDetails = () => {
   const elements = useElements();
   const stripe = useStripe();
   const dispatch = useDispatch();
-  const { total, itemCount } = useSelector(mapState);
+  const { total, itemCount, cartItems } = useSelector(mapState);
   const [billingAddress, setBillingAddress] = useState({ ...initialAddressState });
   const [shippingAddress, setShippingAddress] = useState({ ...initialAddressState });
   const [recipientName, setRecipientName] = useState('');
   const [nameOnCard, setNameOnCard] = useState('');
 
   useEffect(() => {
-    if (itemCount < 1) history.push('/');
+    if (itemCount < 1) {
+      history.push('/dashboard');
+    }
   }, [itemCount]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleFormSubmit = async (evt) => {
+    evt.preventDefault();
     const cardElement = elements.getElement('card');
 
     if (
       !shippingAddress.line1 || !shippingAddress.city
       || !shippingAddress.state || !shippingAddress.postal_code
       || !shippingAddress.country || !billingAddress.line1
-      || !billingAddress.line2 || !billingAddress.state
+      || !billingAddress.city || !billingAddress.state
       || !billingAddress.postal_code || !billingAddress.country
       || !recipientName || !nameOnCard
-    ) { return; }
+    ) {
+      return;
+    }
 
-    // send client data to the firebase functions ( /payment/create ) route.
     apiInstance.post('/payments/create', {
       amount: total * 100,
       shipping: {
@@ -78,16 +81,36 @@ const PaymentDetails = () => {
         stripe.confirmCardPayment(clientSecret, {
           payment_method: paymentMethod.id,
         })
+          // eslint-disable-next-line no-unused-vars
           .then(({ paymentIntent }) => {
-            dispatch(clearCart());
+            const configOrder = {
+              orderTotal: total,
+              orderItems: cartItems.map((item) => {
+                const {
+                  documentID, productThumbnail, productName,
+                  productPrice, quantity,
+                } = item;
+
+                return {
+                  documentID,
+                  productThumbnail,
+                  productName,
+                  productPrice,
+                  quantity,
+                };
+              }),
+            };
+
+            dispatch(
+              saveOrderHistory(configOrder),
+            );
           });
       });
     });
   };
 
-  const handleShipping = (event) => {
-    const { name, value } = event.target;
-
+  const handleShipping = (evt) => {
+    const { name, value } = evt.target;
     setShippingAddress({
       ...shippingAddress,
       [name]: value,
@@ -115,7 +138,7 @@ const PaymentDetails = () => {
 
   return (
     <div className="paymentDetails">
-      <form onSubmit={() => handleSubmit()}>
+      <form onSubmit={handleFormSubmit}>
         <div className="group">
           <h2>Shipping Address</h2>
 

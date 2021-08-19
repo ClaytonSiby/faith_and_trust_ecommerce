@@ -1,19 +1,22 @@
 import {
-  takeLatest, all, call,
+  takeLatest, put, all, call,
 } from 'redux-saga/effects';
 import ordersTypes from './orders.types';
 import { handleSaveOrder } from './orders.helpers';
-import { auth } from '../../firebase/utils';
+import { auth } from '../../Firebase/utils';
+import { clearCart } from '../Cart/cart.actions';
 
 export function* saveOrder({ payload }) {
   try {
-    const timestamps = new Date().toDateString();
+    const timestamps = new Date();
     yield handleSaveOrder({
       ...payload,
       // fetch individual orders with a user.
       orderUserID: auth.currentUser.uid,
       orderCreatedDate: timestamps,
     });
+
+    yield put(clearCart());
   } catch (err) {
     // console.log(err);
   }
