@@ -4,15 +4,18 @@ import './styles.scss';
 const Footer = () => (
   <footer className="footer container-fluid">
     <div className="wrap">
-      <div className="top-footer col-12 row">
+      <div className="top-footer col-12 row my-3 p-3 py-4">
+        <div className="col-12 col-md-1" />
         <div className="col-12 col-md-5">
-          <h2>Subscribe to our newsletter</h2>
+          <h3>Our Newsletter</h3>
           <p>
-            Subscribe to get more useful information about us and to get you 15%
-            off your next purchase
+            Subscribe to get more useful information about us and to get
+            you&nbsp;
+            <span className="text-danger">15% discount</span>
+            &nbsp; off your next purchase.
           </p>
         </div>
-        <div className="col-12 col-md-7">
+        <div className="col-12 col-md-6">
           <form className="row">
             <div className="form-group col-12 col-md-8">
               <input type="text" className="form-control" />
@@ -25,63 +28,80 @@ const Footer = () => (
           </form>
         </div>
       </div>
-      <div className="middle-footer col-12 row">
-        <div className="contact_information col-12 col-md-2">
-          <div>
-            <h2>Fashionable Original</h2>
-            <p>
+      <div className="middle-footer col-12 row my-3 py-3">
+        <div className="contact_information col-12 col-md-3">
+          <div className="site-moto">
+            <h3 className="footer-title">Fashionable Original</h3>
+            <p className="moto-text">
               We are at the heart of fashion, bringing that beauty to
               enlightment!
             </p>
           </div>
           <div>
             <span className="socialIcon">
-              <i className="fa-brands fa-facebook" />
+              <a href="/">
+                <i className="fa-brands fa-facebook" />
+              </a>
             </span>
             <span className="socialIcon">
-              <i className="fa-brands fa-youtube" />
+              <a href="/">
+                <i className="fa-brands fa-youtube" />
+              </a>
             </span>
             <span className="socialIcon">
-              <i className="fa-brands fa-instagram" />
+              <a href="/">
+                <i className="fa-brands fa-instagram" />
+              </a>
             </span>
             <span className="socialIcon">
-              <i className="fa-brands fa-twitter" />
+              <a href="/">
+                <i className="fa-brands fa-twitter" />
+              </a>
             </span>
           </div>
         </div>
-        <div className="contact_information col-12 col-md-4">
-          <h3 className="footerTitle">INFORMATION</h3>
+        <div className="contact_information col-12 col-md-3">
+          <h4 className="footer-title">INFORMATION</h4>
           <ul>
             <li>About Fashionable Original</li>
             <li>FAQ</li>
             <li>Contact Us</li>
           </ul>
         </div>
-        <div className="contact_information col-12 col-md-4">
-          <h3 className="footerTitle">QUICK LINKS</h3>
+        <div className="contact_information col-12 col-md-3">
+          <h4 className="footer-title">QUICK LINKS</h4>
           <ul>
             <li>Wishlist</li>
             <li>Checkout</li>
             <li>Cart</li>
           </ul>
         </div>
-        <div className="contact_information">
+        <div className="contact_information col-12 col-md-3">
           <p>
-            <i className="fa-solid fa-location-dot" /> 37 Glenian Road, Fourways
+            <span className="locationIcon">
+              <i className="fa-solid fa-location-dot" />
+            </span>
+            37 Glenian Road, Fourways
           </p>
           <p>
-            <i className="fa-solid fa-phone" /> +27 64 122 6401
+            <span className="phoneIcon">
+              <i className="fa-solid fa-phone" />
+            </span>
+            +27 64 122 6401
           </p>
           <p>
-            <i className="fa-regular fa-envelope" /> claytonsiby@gmail.com
+            <span>
+              <i className="fa-regular fa-envelope" />
+            </span>
+            claytonsiby@gmail.com
           </p>
         </div>
       </div>
-      <div className="bottom-footer col-12 row">
-        <div className="col-6 d-flex justify-content-start">
-          <p>COPYWRIGHT &copy; 2022 F.Original </p>
+      <div className="bottom-footer col-12 row mt-2">
+        <div className="col-6 d-flex justify-content-start p-0">
+          <p>COPYWRIGHT &copy; 2022. Fashionable Original </p>
         </div>
-        <div className="col-6 d-flex justify-content-end">
+        <div className="col-6 d-flex justify-content-end p-0">
           <p>ALL RIGHTS RESERVED.</p>
         </div>
       </div>

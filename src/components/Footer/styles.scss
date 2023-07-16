@@ -1,7 +1,56 @@
 .footer {
+  color: #fff;
+  background-color: #252525;
+
   .wrap {
     max-width: 1450px;
     margin: 0 auto;
     padding: 20px 10px;
+
+    .middle-footer {
+      .contact_information {
+        .footer-title {
+          font-size: 18px;
+          text-transform: uppercase;
+          color: #ff0000;
+        }
+
+        .site-moto {
+          .moto-text {
+            font-size: 14px;
+          }
+        }
+
+        .socialIcon {
+          margin-right: 10px;
+          font-size: 25px;
+          
+          a {
+            color: #000;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+
+          li {
+            display: block;
+            padding: 8px 0;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .bottom-footer {
+      padding-top: .8rem;
+      border-top: 1px solid red;
+    }
   }
 }
