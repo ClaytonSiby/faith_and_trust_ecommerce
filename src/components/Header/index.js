@@ -26,7 +26,7 @@ const Header = () => {
       <div className="wrap">
         <div className="logo">
           <Link to="/">
-            <img src="" alt="faithNTrust" />
+            <img src="" alt="Fashionable Original" />
           </Link>
         </div>
 
@@ -46,8 +46,9 @@ const Header = () => {
             {currentUser && [
               <li key={0}>
                 <Link to="/cart">
-                  Your Cart &nbsp;
-                  (
+                  <i className="fa-solid fa-cart-shopping" />
+                  {' '}
+                  Your Cart &nbsp; (
                   {totalNumberOfCartItems}
                   )
                 </Link>
