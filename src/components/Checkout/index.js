@@ -64,9 +64,9 @@ const CheckOut = () => {
 
                 <tr>
                   <td>
-                    <table algin="right" border="0" cellSpacing="0" cellPadding="10">
+                    <table align="right" border="0" cellSpacing="0" cellPadding="10">
                       <tbody>
-                        <tr algin="right">
+                        <tr align="right">
                           <td>
                             <h3>
                               Total: $
