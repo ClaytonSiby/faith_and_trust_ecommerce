@@ -12,7 +12,6 @@
         .footer-title {
           font-size: 18px;
           text-transform: uppercase;
-          color: #ff0000;
         }
 
         .site-moto {
@@ -23,7 +22,7 @@
 
         .socialIcon {
           margin-right: 10px;
-          font-size: 25px;
+          font-size: 20px;
           
           a {
             color: #000;
@@ -44,6 +43,11 @@
             padding: 8px 0;
             font-size: 14px;
           }
+        }
+
+        .locationIcon, .phoneIcon, .envelopeIcon {
+          margin-right: 1rem;
+          font-size: 20px;
         }
       }
     }

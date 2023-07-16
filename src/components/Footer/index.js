@@ -21,7 +21,7 @@ const Footer = () => (
               <input type="text" className="form-control" />
             </div>
             <div className="form-group col-12 col-md-4">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-danger">
                 Subscribe
               </button>
             </div>
@@ -31,7 +31,7 @@ const Footer = () => (
       <div className="middle-footer col-12 row my-3 py-3">
         <div className="contact_information col-12 col-md-3">
           <div className="site-moto">
-            <h3 className="footer-title">Fashionable Original</h3>
+            <h3 className="footer-title text-danger">Crotchetsy</h3>
             <p className="moto-text">
               We are at the heart of fashion, bringing that beauty to
               enlightment!
@@ -61,15 +61,15 @@ const Footer = () => (
           </div>
         </div>
         <div className="contact_information col-12 col-md-3">
-          <h4 className="footer-title">INFORMATION</h4>
+          <h4 className="footer-title text-danger">INFORMATION</h4>
           <ul>
-            <li>About Fashionable Original</li>
+            <li>About Crotchetsy</li>
             <li>FAQ</li>
             <li>Contact Us</li>
           </ul>
         </div>
         <div className="contact_information col-12 col-md-3">
-          <h4 className="footer-title">QUICK LINKS</h4>
+          <h4 className="footer-title text-danger">QUICK LINKS</h4>
           <ul>
             <li>Wishlist</li>
             <li>Checkout</li>
@@ -90,7 +90,7 @@ const Footer = () => (
             +27 64 122 6401
           </p>
           <p>
-            <span>
+            <span className="envelopeIcon">
               <i className="fa-regular fa-envelope" />
             </span>
             claytonsiby@gmail.com
@@ -99,7 +99,7 @@ const Footer = () => (
       </div>
       <div className="bottom-footer col-12 row mt-2">
         <div className="col-6 d-flex justify-content-start p-0">
-          <p>COPYWRIGHT &copy; 2022. Fashionable Original </p>
+          <p>COPYWRIGHT &copy; 2022. Crotchetsy </p>
         </div>
         <div className="col-6 d-flex justify-content-end p-0">
           <p>ALL RIGHTS RESERVED.</p>
