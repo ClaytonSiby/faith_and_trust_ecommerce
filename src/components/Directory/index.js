@@ -7,10 +7,18 @@ const Directory = () => (
   <div className="directory">
     <div className="wrap">
       <div className="item" style={{ backgroundImage: `url(${ShopWomen})` }}>
-        <a href="#women">Shop Women&apos;s</a>
+        <button type="button">
+          <a className="text-danger" href="/women">
+            Shop Women&apos;s
+          </a>
+        </button>
       </div>
       <div className="item" style={{ backgroundImage: `url(${ShopMen})` }}>
-        <a href="#man">Shop Men&apos;s</a>
+        <button type="button">
+          <a className="text-danger" href="/man">
+            Shop Men&apos;s
+          </a>
+        </button>
       </div>
     </div>
   </div>
