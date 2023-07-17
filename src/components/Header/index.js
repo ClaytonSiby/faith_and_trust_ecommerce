@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header className="header border-bottom">
       <div className="wrap">
         <div className="logo">
           <Link to="/">
@@ -36,7 +36,13 @@ const Header = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/search">Search</Link>
+              <Link to="/search">Shop</Link>
+            </li>
+            <li>
+              <Link to="/about">About Us</Link>
+            </li>
+            <li>
+              <Link to="/blog">Blog</Link>
             </li>
           </ul>
         </nav>
@@ -47,8 +53,7 @@ const Header = () => {
               <li key={0}>
                 <Link to="/cart">
                   <i className="fa-solid fa-cart-shopping" />
-                  {' '}
-                  Your Cart&nbsp;(
+                  (
                   {totalNumberOfCartItems}
                   )
                 </Link>
