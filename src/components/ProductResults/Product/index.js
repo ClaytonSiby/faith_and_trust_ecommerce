@@ -42,12 +42,19 @@ const Product = (product) => {
         <Card.Img variant="top" className="p-0" src={productThumbnail} />
       </Link>
       <Card.Body>
-        <Link to={`/product/${documentID}`}><Card.Title>{productName}</Card.Title></Link>
-        <Card.Text>
-          $
-          {productPrice}
+        <Card.Title>{productName}</Card.Title>
+        <Card.Text className="d-flex justify-content-between">
+          <p>
+            $
+            {productPrice}
+          </p>
+          <p>
+            <Link className="text-danger" to={`/product/${documentID}`}>view item</Link>
+          </p>
         </Card.Text>
-        <Button {...configAddToCart} onClick={() => handleAddToCart(product)}>Add To Cart</Button>
+        <Button className="btn btn-md btn-danger" {...configAddToCart} onClick={() => handleAddToCart(product)}>
+          Add To Cart
+        </Button>
       </Card.Body>
     </Card>
   );

@@ -19,7 +19,7 @@ export const handleFetchProducts = ({
   startAfterDoc,
   persistProducts = [],
 }) => new Promise((resolve, reject) => {
-  let ref = firestore.collection('products').orderBy('createdDate').limit(6);
+  let ref = firestore.collection('products').orderBy('createdDate').limit(8);
 
   if (filterType) ref = ref.where('productCategory', '==', filterType);
 
