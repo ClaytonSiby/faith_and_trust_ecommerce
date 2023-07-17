@@ -77,29 +77,32 @@ const Footer = () => (
           </ul>
         </div>
         <div className="contact_information col-12 col-md-3">
-          <p>
-            <span className="locationIcon">
-              <i className="fa-solid fa-location-dot" />
-            </span>
-            37 Glenian Road, Fourways
-          </p>
-          <p>
-            <span className="phoneIcon">
-              <i className="fa-solid fa-phone" />
-            </span>
-            +27 64 122 6401
-          </p>
-          <p>
-            <span className="envelopeIcon">
-              <i className="fa-regular fa-envelope" />
-            </span>
-            claytonsiby@gmail.com
-          </p>
+          <h4 className="footer-title text-danger">CONTACT US</h4>
+          <ul>
+            <li>
+              <span className="locationIcon">
+                <i className="fa-solid fa-location-dot" />
+              </span>
+              37 Glenian Road, Fourways
+            </li>
+            <li>
+              <span className="phoneIcon">
+                <i className="fa-solid fa-phone" />
+              </span>
+              +27 64 122 6401
+            </li>
+            <li>
+              <span className="envelopeIcon">
+                <i className="fa-regular fa-envelope" />
+              </span>
+              claytonsiby@gmail.com
+            </li>
+          </ul>
         </div>
       </div>
       <div className="bottom-footer col-12 row mt-2">
         <div className="col-6 d-flex justify-content-start p-0">
-          <p>COPYWRIGHT &copy; 2022. Crotchetsy </p>
+          <p>COPYWRIGHT &copy; 2023. Crotchetsy </p>
         </div>
         <div className="col-6 d-flex justify-content-end p-0">
           <p>ALL RIGHTS RESERVED.</p>
