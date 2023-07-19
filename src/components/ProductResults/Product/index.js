@@ -44,13 +44,13 @@ const Product = (product) => {
       <Card.Body>
         <Card.Title>{productName}</Card.Title>
         <Card.Text className="d-flex justify-content-between">
-          <p>
+          <span>
             $
             {productPrice}
-          </p>
-          <p>
+          </span>
+          <span>
             <Link className="text-danger" to={`/product/${documentID}`}>view item</Link>
-          </p>
+          </span>
         </Card.Text>
         <Button className="btn btn-md btn-danger" {...configAddToCart} onClick={() => handleAddToCart(product)}>
           Add To Cart
