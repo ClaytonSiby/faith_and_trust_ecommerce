@@ -41,10 +41,10 @@ const Product = (product) => {
       <Link to={`/product/${documentID}`}>
         <Card.Img variant="top" className="p-0" src={productThumbnail} />
       </Link>
-      <Card.Body>
+      <Card.Body className="text-center">
         <Card.Title>{productName}</Card.Title>
         <Card.Text className="d-flex justify-content-between">
-          <span>
+          <span className="text-danger">
             $
             {productPrice}
           </span>
