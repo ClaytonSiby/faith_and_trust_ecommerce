@@ -29,7 +29,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="middle-footer col-12 row my-3 py-3">
-        <div className="contact_information col-12 col-md-3">
+        <div className="contact_information col-12 col-md-3 mt-2">
           <div className="site-moto">
             <h3 className="footer-title text-danger">Crotchetsy</h3>
             <p className="moto-text">
@@ -60,7 +60,7 @@ const Footer = () => (
             </span>
           </div>
         </div>
-        <div className="contact_information col-12 col-md-3">
+        <div className="contact_information col-12 col-md-3 mt-2">
           <h4 className="footer-title text-danger">INFORMATION</h4>
           <ul>
             <li>About Crotchetsy</li>
@@ -68,7 +68,7 @@ const Footer = () => (
             <li>Contact Us</li>
           </ul>
         </div>
-        <div className="contact_information col-12 col-md-3">
+        <div className="contact_information col-12 col-md-3 mt-2">
           <h4 className="footer-title text-danger">QUICK LINKS</h4>
           <ul>
             <li>Wishlist</li>
@@ -76,7 +76,7 @@ const Footer = () => (
             <li>Cart</li>
           </ul>
         </div>
-        <div className="contact_information col-12 col-md-3">
+        <div className="contact_information col-12 col-md-3 mt-2">
           <h4 className="footer-title text-danger">CONTACT US</h4>
           <ul>
             <li>
