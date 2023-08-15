@@ -44,7 +44,7 @@ const ProductResults = () => {
     defaultValue: filterType,
     options: [
       {
-        name: 'Show All',
+        name: 'All Categories',
         value: '',
       },
       {
@@ -75,8 +75,8 @@ const ProductResults = () => {
   };
 
   return (
-    <Container fluid className="my-3 w-100 mx-0 p-0">
-      <h1>Browse Products</h1>
+    <Container className="my-3 w-100 mx-auto p-0">
+      <h3>Our Products</h3>
       <FormSelect {...configFilters} />
       <Row className="productResults my-2">
         {data.map((product) => {

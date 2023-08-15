@@ -37,17 +37,24 @@ const Product = (product) => {
   };
 
   return (
-    <Card className="my-2 main">
+    <Card className="my-2">
       <Link to={`/product/${documentID}`}>
         <Card.Img variant="top" className="p-0" src={productThumbnail} />
       </Link>
-      <Card.Body>
-        <Link to={`/product/${documentID}`}><Card.Title>{productName}</Card.Title></Link>
-        <Card.Text>
-          $
-          {productPrice}
+      <Card.Body className="text-center">
+        <Card.Title>{productName}</Card.Title>
+        <Card.Text className="d-flex justify-content-between">
+          <span className="text-danger">
+            $
+            {productPrice}
+          </span>
+          <span>
+            <Link className="text-danger" to={`/product/${documentID}`}>view item</Link>
+          </span>
         </Card.Text>
-        <Button {...configAddToCart} onClick={() => handleAddToCart(product)}>Add To Cart</Button>
+        <Button className="btn btn-md btn-danger" {...configAddToCart} onClick={() => handleAddToCart(product)}>
+          Add To Cart
+        </Button>
       </Card.Body>
     </Card>
   );

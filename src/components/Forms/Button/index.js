@@ -4,7 +4,7 @@ import './styles.scss';
 
 const Button = ({ children, ...otherProps }) => (
   // eslint-disable-next-line react/jsx-props-no-spreading
-  <button className="button my-2" type="button" {...otherProps}>
+  <button className="button my-2 btn-danger" type="button" {...otherProps}>
     { children }
   </button>
 );
