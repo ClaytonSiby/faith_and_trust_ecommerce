@@ -1,5 +1,12 @@
 .banner {
-    background: green;
-    height: 45vh;
+    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url('../../assets/skirt.jpeg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40vh;
     width: 100%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
