@@ -5,12 +5,12 @@ import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 import {
   fetchProductStart,
   setProduct,
 } from '../../redux/Products/products.actions';
 import { addProduct } from '../../redux/Cart/cart.actions';
-import Button from '../Forms/Button';
 import './styles.scss';
 
 const mapState = (state) => ({
@@ -47,18 +47,28 @@ const ProductCard = () => {
   };
 
   return (
-    <Card className="productDetails">
-      <Card.Img className="theImage" variant="top" src={productThumbnail} />
-      <Card.Body>
-        <Card.Title>{ productName }</Card.Title>
-        <p>
-          $
-          {productPrice}
-        </p>
-        <Button variant="primary" onClick={() => handleAddProductToCart(product)} {...configAddToCartBtn}>Add To Cart</Button>
-        <Card.Text dangerouslySetInnerHTML={{ __html: productDescription }} />
-      </Card.Body>
-    </Card>
+    <div className="productDetails container my-3">
+      <div className="row">
+        <div className="col-5">
+          <img src={productThumbnail} alt="thumbnail" className="h-100 w-100" />
+        </div>
+        <div className="col-7">
+          <div>{productName}</div>
+          <p>
+            $
+            {productPrice}
+          </p>
+          <Button
+            variant="primary"
+            onClick={() => handleAddProductToCart(product)}
+            {...configAddToCartBtn}
+          >
+            Add To Cart
+          </Button>
+          <div dangerouslySetInnerHTML={{ __html: productDescription }} />
+        </div>
+      </div>
+    </div>
   );
 };
 
